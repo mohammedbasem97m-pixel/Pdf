@@ -1,102 +1,851 @@
-<script>window.addEventListener('DOMContentLoaded',()=>{while(document.body.nextSibling)document.body.nextSibling.remove();});</script>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>نشاطات المنظمات</title>
+
 <style>
-:root{--navy:#102b46;--blue:#174c70;--gold:#d6ad55;--bg:#f3f6f9;--ink:#203247;--muted:#6b7b8c;--line:#dce4eb;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink);text-align:center}header{background:linear-gradient(125deg,var(--navy),var(--blue));color:white;padding:28px 18px 32px;border-bottom:5px solid var(--gold)}.wrap{max-width:1100px;margin:auto;padding:0 16px}header h1{margin:0;font-size:clamp(25px,5vw,36px)}header p{margin:9px 0 0;color:#dce8f1}.hero{margin-top:-17px;background:white;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px #102b4610}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}.search{flex:1;min-width:190px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;text-align:center}.btn{border:0;border-radius:10px;padding:12px 16px;font-weight:bold;cursor:pointer;font-size:14px}.primary{background:var(--navy);color:white}.gold{background:var(--gold);color:#172b3d}.light{background:#edf2f6;color:var(--navy)}.danger{background:#fff0ef;color:#a33129}.stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:13px;margin-top:14px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;margin:20px 0}.folder{background:white;border:2px solid var(--folder-color,var(--line));border-radius:18px;padding:22px 18px;display:flex;flex-direction:column;gap:13px;align-items:center;justify-content:center;text-align:center;min-width:0;min-height:245px;box-shadow:0 5px 16px #102b4610;transition:transform .15s,box-shadow .15s}.folder:hover{transform:translateY(-3px);box-shadow:0 10px 24px #102b4620}.folderVisual{width:100%;height:112px;border-radius:13px;display:grid;place-items:center;background:var(--folder-tint,#edf2f6);overflow:hidden}.folderVisual img{width:100%;height:100%;object-fit:cover}.folderIcon{font-size:58px;line-height:1}.folderName{font-size:17px}.folder .btn{margin-top:8px}.folderInfo{flex:none}.folderIcon{font-size:29px}.folderInfo{min-width:0;width:100%;flex:1;text-align:center}.folderName{font-weight:bold;overflow-wrap:anywhere}.folderMeta{font-size:12px;color:var(--muted);margin-top:6px}.folder button{margin:9px auto 0}.empty{text-align:center;color:var(--muted);padding:45px 10px;background:#fff;border:1px dashed #cbd6df;border-radius:14px}.notice{font-size:12px;color:var(--muted);line-height:1.8;margin:18px 2px}.hidden{display:none!important}.panel{margin:20px 0;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}.back{margin-bottom:15px}.filebox{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center;background:#f7f9fb;border:1px solid var(--line);border-radius:12px;padding:15px}.filetitle{font-weight:bold;flex:1;min-width:180px;overflow-wrap:anywhere}.fileactions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}.modal{position:fixed;inset:0;background:#07182799;display:grid;place-items:center;padding:15px;z-index:5}.dialog{background:white;border-radius:15px;padding:20px;width:min(440px,100%)}.dialog input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;margin:10px 0;text-align:center}.dialog label{display:block;text-align:center;font-size:13px;color:var(--muted);margin-top:10px}.dialog input[type=color]{height:48px;padding:4px}.dialog input[type=file]{font-size:12px}.dialog .hint{font-size:11px;color:var(--muted);line-height:1.7}.dialogActions{display:flex;gap:8px;justify-content:center}.tag{font-size:11px;background:#edf4f8;color:#28516c;padding:5px 8px;border-radius:20px}.folderNumber{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:28px;padding:0 8px;border-radius:8px;background:#f7efd9;color:#725414;font-weight:bold;font-size:13px;margin-left:8px;direction:ltr}.detailNumber{display:inline-block;background:#f7efd9;color:#725414;border-radius:8px;padding:5px 10px;font-size:14px;margin-left:8px;direction:ltr}
-</style></head>
+:root{
+--navy:#102b46;
+--blue:#174c70;
+--gold:#d6ad55;
+--bg:#f3f6f9;
+--ink:#203247;
+--muted:#6b7b8c;
+--line:#dce4eb;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+background:var(--bg);
+font-family:Tahoma,Arial,sans-serif;
+color:var(--ink);
+text-align:center
+}
+header{
+background:linear-gradient(125deg,var(--navy),var(--blue));
+color:white;
+padding:28px 18px 32px;
+border-bottom:5px solid var(--gold)
+}
+header h1{margin:0;font-size:clamp(25px,5vw,36px)}
+header p{margin:9px 0 0;color:#dce8f1}
+.wrap{max-width:1100px;margin:auto;padding:0 16px}
+.hero{
+margin-top:-17px;
+background:white;
+border:1px solid var(--line);
+border-radius:16px;
+padding:18px;
+box-shadow:0 8px 24px #102b4610
+}
+.toolbar{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+align-items:center;
+justify-content:center
+}
+.search{
+flex:1;
+min-width:190px;
+padding:13px 14px;
+border:1px solid var(--line);
+border-radius:10px;
+font-size:15px;
+text-align:center
+}
+.btn{
+border:0;
+border-radius:10px;
+padding:12px 16px;
+font-weight:bold;
+cursor:pointer;
+font-size:14px
+}
+.primary{background:var(--navy);color:white}
+.gold{background:var(--gold);color:#172b3d}
+.light{background:#edf2f6;color:var(--navy)}
+.danger{background:#fff0ef;color:#a33129}
+.stats{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+justify-content:center;
+color:var(--muted);
+font-size:13px;
+margin-top:14px
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+gap:13px;
+margin:20px 0
+}
+.folder{
+background:white;
+border:2px solid var(--folder-color,var(--line));
+border-radius:18px;
+padding:22px 18px;
+display:flex;
+flex-direction:column;
+gap:13px;
+align-items:center;
+justify-content:center;
+text-align:center;
+min-width:0;
+min-height:245px;
+box-shadow:0 5px 16px #102b4610;
+transition:transform .15s,box-shadow .15s
+}
+.folder:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 24px #102b4620
+}
+.folderVisual{
+width:100%;
+height:112px;
+border-radius:13px;
+display:grid;
+place-items:center;
+background:var(--folder-tint,#edf2f6);
+overflow:hidden
+}
+.folderVisual img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+.folderIcon{font-size:29px}
+.folderInfo{
+min-width:0;
+width:100%;
+flex:1;
+text-align:center
+}
+.folderName{
+font-size:17px;
+font-weight:bold;
+overflow-wrap:anywhere
+}
+.folderMeta{
+font-size:12px;
+color:var(--muted);
+margin-top:6px
+}
+.folder button{margin:9px auto 0}
+.empty{
+text-align:center;
+color:var(--muted);
+padding:45px 10px;
+background:#fff;
+border:1px dashed #cbd6df;
+border-radius:14px
+}
+.notice{
+font-size:12px;
+color:var(--muted);
+line-height:1.8;
+margin:18px 2px
+}
+.hidden{display:none!important}
+.panel{
+margin:20px 0;
+background:#fff;
+border:1px solid var(--line);
+border-radius:15px;
+padding:18px
+}
+.back{margin-bottom:15px}
+.filebox{
+display:flex;
+gap:12px;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+text-align:center;
+background:#f7f9fb;
+border:1px solid var(--line);
+border-radius:12px;
+padding:15px
+}
+.filetitle{
+font-weight:bold;
+flex:1;
+min-width:180px;
+overflow-wrap:anywhere
+}
+.fileactions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+justify-content:center
+}
+footer{
+text-align:center;
+color:var(--muted);
+font-size:12px;
+padding:25px
+}
+.modal{
+position:fixed;
+inset:0;
+background:#07182799;
+display:grid;
+place-items:center;
+padding:15px;
+z-index:5
+}
+.dialog{
+background:white;
+border-radius:15px;
+padding:20px;
+width:min(440px,100%)
+}
+.dialog input{
+width:100%;
+padding:12px;
+border:1px solid var(--line);
+border-radius:9px;
+margin:10px 0;
+text-align:center
+}
+.dialog label{
+display:block;
+text-align:center;
+font-size:13px;
+color:var(--muted);
+margin-top:10px
+}
+.dialog input[type=color]{height:48px;padding:4px}
+.dialog input[type=file]{font-size:12px}
+.dialog .hint{
+font-size:11px;
+color:var(--muted);
+line-height:1.7
+}
+.dialogActions{
+display:flex;
+gap:8px;
+justify-content:center
+}
+.tag{
+font-size:11px;
+background:#edf4f8;
+color:#28516c;
+padding:5px 8px;
+border-radius:20px
+}
+.folderNumber{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:34px;
+height:28px;
+padding:0 8px;
+border-radius:8px;
+background:#f7efd9;
+color:#725414;
+font-weight:bold;
+font-size:13px;
+margin-left:8px;
+direction:ltr
+}
+.detailNumber{
+display:inline-block;
+background:#f7efd9;
+color:#725414;
+border-radius:8px;
+padding:5px 10px;
+font-size:14px;
+margin-left:8px;
+direction:ltr
+}
+</style>
+</head>
+
 <body>
-<header><div class="wrap"><h1>نشاطات المنظمات</h1><p>الأرشيف الإلكتروني للمجلدات والوثائق</p></div></header>
+
+<header>
+<div class="wrap">
+<h1>نشاطات المنظمات</h1>
+<p>الأرشيف الإلكتروني للمجلدات والوثائق</p>
+</div>
+</header>
+
 <main class="wrap">
+
 <section id="home" class="hero">
- <div class="toolbar"><input id="search" class="search" placeholder="ابحث عن مجلد بالاسم..."><button class="btn primary" id="addBtn">＋ إنشاء مجلد</button><button class="btn light" id="backupBtn">نسخة احتياطية</button><button class="btn light" id="restoreBtn">استعادة نسخة</button><input type="file" id="restoreFile" accept="application/json" class="hidden"></div>
- <div class="stats"><span id="count">0 مجلد</span><span id="pdfCount">0 ملف PDF</span><span class="tag">يعمل دون إنترنت</span></div>
+<div class="toolbar">
+<input id="search" class="search" placeholder="ابحث عن مجلد بالاسم...">
+<button class="btn primary" id="addBtn">＋ إنشاء مجلد</button>
+<button class="btn light" id="backupBtn">نسخة احتياطية</button>
+<button class="btn light" id="restoreBtn">استعادة نسخة</button>
+<input type="file" id="restoreFile" accept="application/json" class="hidden">
+</div>
+
+<div class="stats">
+<span id="count">0 مجلد</span>
+<span id="pdfCount">0 ملف PDF</span>
+<span class="tag">يعمل دون إنترنت</span>
+</div>
 </section>
+
 <section id="folders" class="grid"></section>
-<section id="empty" class="empty hidden">لا توجد مجلدات حالياً. اضغط «إنشاء مجلد» لإضافة أول مجلد.</section>
-<section id="detail" class="panel hidden"><button class="btn light back" id="backBtn">→ الرجوع للمجلدات</button><h2 id="detailName"></h2><p id="detailCreated" class="folderMeta"></p><p class="notice">يمكنك إضافة ملف PDF أو استبداله. ستبقى البيانات محفوظة في هذا المتصفح على هذه الحاسبة.</p><div class="toolbar" style="margin-bottom:15px"><label class="btn gold" for="pdfInput">＋ رفع ملف PDF</label><input id="pdfInput" type="file" accept="application/pdf,.pdf" class="hidden"><button class="btn light" id="renameBtn">تعديل الاسم واللون والصورة</button><button class="btn danger" id="deleteBtn">حذف المجلد</button></div><div id="fileArea"></div></section>
-<p class="notice">تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط، ولا تتم مزامنة الملفات مع الإنترنت. لا تمسح بيانات المتصفح أو تستخدم وضع التصفح الخفي. استخدم «نسخة احتياطية» دورياً واحفظها على USB أو مكان آمن.</p>
-</main><footer>نشاطات المنظمات © الأرشيف المحلي</footer>
-<div id="modal" class="modal hidden"><div class="dialog"><h3 id="modalTitle">إنشاء مجلد جديد</h3><input id="folderName" maxlength="120" placeholder="اكتب اسم المجلد"><label for="folderColor">لون المجلد</label><input id="folderColor" type="color" value="#d6ad55"><label for="folderImage">صورة للمجلد (اختياري)</label><input id="folderImage" type="file" accept="image/*"><div class="hint" id="imageHint">تقدر تختار صورة من الحاسبة، أو تتركها فارغة ويظهر رمز المجلد.</div><div class="dialogActions"><button class="btn primary" id="saveFolder">حفظ</button><button class="btn light" id="cancelModal">إلغاء</button></div></div></div>
+
+<section id="empty" class="empty hidden">
+لا توجد مجلدات حالياً. اضغط «إنشاء مجلد» لإضافة أول مجلد.
+</section>
+
+<section id="detail" class="panel hidden">
+<button class="btn light back" id="backBtn">→ الرجوع للمجلدات</button>
+<h2 id="detailName"></h2>
+<p id="detailCreated" class="folderMeta"></p>
+
+<p class="notice">
+يمكنك إضافة ملف PDF أو استبداله.
+ستبقى البيانات محفوظة في هذا المتصفح على هذه الحاسبة.
+</p>
+
+<div class="toolbar" style="margin-bottom:15px">
+<label class="btn gold" for="pdfInput">＋ رفع ملف PDF</label>
+<input id="pdfInput" type="file" accept="application/pdf,.pdf" class="hidden">
+<button class="btn light" id="renameBtn">تعديل الاسم واللون والصورة</button>
+<button class="btn danger" id="deleteBtn">حذف المجلد</button>
+</div>
+
+<div id="fileArea"></div>
+</section>
+
+<p class="notice">
+تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط،
+ولا تتم مزامنة الملفات مع الإنترنت.
+لا تمسح بيانات المتصفح أو تستخدم وضع التصفح الخفي.
+استخدم «نسخة احتياطية» دورياً واحفظها على USB أو مكان آمن.
+</p>
+
+</main>
+
+<footer>نشاطات المنظمات © الأرشيف المحلي</footer>
+
+<div id="modal" class="modal hidden">
+<div class="dialog">
+
+<h3 id="modalTitle">إنشاء مجلد جديد</h3>
+
+<input id="folderName" maxlength="120" placeholder="اكتب اسم المجلد">
+
+<label for="folderColor">لون المجلد</label>
+<input id="folderColor" type="color" value="#d6ad55">
+
+<label for="folderImage">صورة للمجلد (اختياري)</label>
+<input id="folderImage" type="file" accept="image/*">
+
+<div class="hint" id="imageHint">
+تقدر تختار صورة من الحاسبة، أو تتركها فارغة ويظهر رمز المجلد.
+</div>
+
+<div class="dialogActions">
+<button class="btn primary" id="saveFolder">حفظ</button>
+<button class="btn light" id="cancelModal">إلغاء</button>
+</div>
+
+</div>
+</div>
+
 <script>
 (()=>{
 'use strict';
-const DB='orgActivitiesLocalDB', STORE='folders', VERSION=1; let db, activeId=null, renameMode=false;
+
+const DB='orgActivitiesLocalDB';
+const STORE='folders';
+const VERSION=1;
+
+let db,activeId=null,renameMode=false;
+
 const $=id=>document.getElementById(id);
-function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB,VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE)){const s=d.createObjectStore(STORE,{keyPath:'id'});s.createIndex('name','name',{unique:false});}};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
-function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE)}
-function all(){return new Promise((res,rej)=>{const r=tx().getAll();r.onsuccess=()=>res(r.result.sort((a,b)=>a.name.localeCompare(b.name,'ar')));r.onerror=()=>rej(r.error);});}
-function put(v){return new Promise((res,rej)=>{const r=tx('readwrite').put(v);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
-function del(id){return new Promise((res,rej)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function formatCreatedAt(value){if(!value)return 'وقت الإنشاء غير متوفر';const d=new Date(value);if(Number.isNaN(d.getTime()))return 'وقت الإنشاء غير متوفر';return new Intl.DateTimeFormat('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}).format(d);}
-async function ensureFolderNumbers(list){let maxNo=list.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0);for(const x of list){if(!Number.isInteger(x.folderNo)||x.folderNo<1){maxNo++;x.folderNo=maxNo;await put(x);}}return list;}
-async function render(){let list=await all();list=await ensureFolderNumbers(list);const q=$('search').value.trim().toLocaleLowerCase('ar');const filtered=list.filter(x=>x.name.toLocaleLowerCase('ar').includes(q));$('count').textContent=list.length.toLocaleString('ar')+' مجلد';$('pdfCount').textContent=list.filter(x=>x.file).length.toLocaleString('ar')+' ملف PDF';$('folders').innerHTML=filtered.map(x=>{const color=x.color||'#d6ad55';const tint=hexTint(color);const image=x.image?URL.createObjectURL(x.image):'';return `<article class="folder" style="--folder-color:${esc(color)};--folder-tint:${tint}"><div class="folderVisual">${image?`<img src="${image}" alt="صورة ${esc(x.name)}">`:'<div class="folderIcon">📁</div>'}</div><div class="folderInfo"><div class="folderName"><span class="folderNumber">${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}</div><div class="folderMeta">🕒 تاريخ الإنشاء: ${esc(formatCreatedAt(x.createdAt))}</div><div class="folderMeta">${x.file?'📄 '+esc(x.fileName||'ملف PDF'):'لا يوجد ملف مرفق'}</div><button class="btn light openFolder" data-id="${esc(x.id)}">فتح المجلد ←</button></div></article>`}).join('');$('empty').classList.toggle('hidden',filtered.length!==0);$('folders').classList.toggle('hidden',filtered.length===0);document.querySelectorAll('.openFolder').forEach(b=>b.onclick=()=>openFolder(b.dataset.id));}
-function hexTint(hex){const h=/^#[0-9a-f]{6}$/i.test(hex)?hex:'#d6ad55';const n=parseInt(h.slice(1),16);const r=Math.round(((n>>16)&255)*.13+255*.87),g=Math.round(((n>>8)&255)*.13+255*.87),b=Math.round((n&255)*.13+255*.87);return `rgb(${r},${g},${b})`;}
-async function openFolder(id){const x=(await all()).find(v=>v.id===id);if(!x)return;activeId=id;$('home').classList.add('hidden');$('folders').classList.add('hidden');$('empty').classList.add('hidden');$('detail').classList.remove('hidden');$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;$('detailCreated').textContent='🕒 تاريخ ووقت إنشاء المجلد: '+formatCreatedAt(x.createdAt);renderFile(x);}
-function renderFile(x){$('fileArea').innerHTML=x.file?`<div class="filebox"><div class="filetitle">📄 ${esc(x.fileName||'ملف PDF')}<div class="folderMeta">${(x.file.size/1024/1024).toFixed(2)} MB</div></div><div class="fileactions"><button class="btn primary" id="viewPdf">فتح PDF</button><button class="btn light" id="printPdf">طباعة</button><button class="btn light" id="downloadPdf">تنزيل</button><button class="btn danger" id="removePdf">إزالة الملف</button></div></div>`:'<div class="empty">هذا المجلد لا يحتوي على ملف PDF بعد.</div>';
-if(x.file){const url=URL.createObjectURL(x.file);$('viewPdf').onclick=()=>window.open(url,'_blank');$('printPdf').onclick=()=>{const w=window.open(url,'_blank');if(w)w.onload=()=>w.print();};$('downloadPdf').onclick=()=>{const a=document.createElement('a');a.href=url;a.download=x.fileName||'document.pdf';a.click();};$('removePdf').onclick=async()=>{if(confirm('هل تريد إزالة ملف PDF من هذا المجلد؟')){delete x.file;x.fileName='';await put(x);renderFile(x);await render();}};}}
-function showModal(rename=false){renameMode=rename;$('modalTitle').textContent=rename?'تعديل بيانات المجلد':'إنشاء مجلد جديد';$('folderName').value='';$('folderColor').value='#d6ad55';$('folderImage').value='';$('imageHint').textContent='تقدر تختار صورة من الحاسبة، أو تتركها فارغة ويظهر رمز المجلد.';if(rename){all().then(list=>{const x=list.find(v=>v.id===activeId);if(x){$('folderName').value=x.name;$('folderColor').value=x.color||'#d6ad55';$('imageHint').textContent=x.image?'توجد صورة حالية؛ اختيار صورة جديدة سيستبدلها.':'لا توجد صورة حالية.';}});} $('modal').classList.remove('hidden');$('folderName').focus();}
-$('addBtn').onclick=()=>showModal(false);$('cancelModal').onclick=()=>$('modal').classList.add('hidden');$('saveFolder').onclick=async()=>{const name=$('folderName').value.trim();if(!name){alert('اكتب اسم المجلد أولاً');return;}const chosen=$('folderImage').files[0];if(chosen&& !chosen.type.startsWith('image/')){alert('يرجى اختيار ملف صورة');return;}if(renameMode){const x=(await all()).find(v=>v.id===activeId);if(x){x.name=name;x.color=$('folderColor').value;if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}x.image=chosen;}await put(x);$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;}}else{const existing=await all();const folderNo=existing.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0)+1;const record={id:crypto.randomUUID(),name,folderNo,createdAt:Date.now(),color:$('folderColor').value};if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}record.image=chosen;}await put(record);} $('modal').classList.add('hidden');await render();};$('folderName').onkeydown=e=>{if(e.key==='Enter')$('saveFolder').click();};
-$('search').oninput=render;$('backBtn').onclick=()=>{$('detail').classList.add('hidden');$('home').classList.remove('hidden');render();};$('renameBtn').onclick=()=>showModal(true);$('deleteBtn').onclick=async()=>{if(confirm('حذف المجلد وملف PDF الموجود بداخله نهائياً؟')){await del(activeId);activeId=null;$('detail').classList.add('hidden');$('home').classList.remove('hidden');await render();}};
-$('pdfInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;if(f.type!=='application/pdf'&&!f.name.toLowerCase().endsWith('.pdf')){alert('يرجى اختيار ملف PDF فقط');e.target.value='';return;}if(f.size>100*1024*1024){alert('حجم الملف أكبر من 100 ميغابايت');e.target.value='';return;}const x=(await all()).find(v=>v.id===activeId);if(x){x.file=f;x.fileName=f.name;await put(x);renderFile(x);await render();}e.target.value='';};
-$('backupBtn').onclick=async()=>{try{const list=await all(), data=[];for(const x of list){let file=null,image=null;if(x.file)file={name:x.fileName||x.file.name,type:x.file.type||'application/pdf',data:await blobToBase64(x.file)};if(x.image)image={type:x.image.type||'image/jpeg',data:await blobToBase64(x.image)};data.push({id:x.id,name:x.name,folderNo:x.folderNo,createdAt:x.createdAt,color:x.color||'#d6ad55',image,file});}const blob=new Blob([JSON.stringify({format:'org-activities-backup-v1',folders:data})],{type:'application/json'});downloadBlob(blob,'org-activities-backup-'+new Date().toISOString().slice(0,10)+'.json');}catch(e){alert('تعذر إنشاء النسخة الاحتياطية: '+e.message);}};
-function blobToBase64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=()=>rej(r.error);r.readAsDataURL(blob);});}
-function downloadBlob(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),3000);}
-$('restoreBtn').onclick=()=>$('restoreFile').click();$('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.format!=='org-activities-backup-v1'||!Array.isArray(data.folders))throw Error('صيغة النسخة غير صحيحة');if(!confirm('ستتم إضافة المجلدات من النسخة الاحتياطية. إذا تكرر المعرّف سيتم استبدال المجلد الموجود. متابعة؟'))return;for(const v of data.folders){let file,image;if(v.file){const raw=atob(v.file.data),arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);file=new Blob([arr],{type:v.file.type||'application/pdf'});}if(v.image){const raw=atob(v.image.data),arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);image=new Blob([arr],{type:v.image.type||'image/jpeg'});}await put({id:v.id||crypto.randomUUID(),name:v.name,...(Number.isInteger(v.folderNo)?{folderNo:v.folderNo}:{}),createdAt:v.createdAt||Date.now(),color:v.color||'#d6ad55',...(image?{image}:{}),...(file?{file,fileName:v.file.name}:{})});}await render();alert('تمت استعادة النسخة الاحتياطية بنجاح.');}catch(err){alert('تعذرت الاستعادة: '+err.message);}finally{e.target.value='';}};
-openDB().then(async d=>{db=d;await render();}).catch(e=>{alert('تعذر تحميل البيانات: '+(e&&e.message?e.message:e));console.error(e);});
+
+function openDB(){
+return new Promise((resolve,reject)=>{
+const req=indexedDB.open(DB,VERSION);
+
+req.onupgradeneeded=()=>{
+const d=req.result;
+if(!d.objectStoreNames.contains(STORE)){
+const s=d.createObjectStore(STORE,{keyPath:'id'});
+s.createIndex('name','name',{unique:false});
+}
+};
+
+req.onsuccess=()=>resolve(req.result);
+req.onerror=()=>reject(req.error);
+});
+}
+
+function tx(mode='readonly'){
+return db.transaction(STORE,mode).objectStore(STORE);
+}
+
+function all(){
+return new Promise((res,rej)=>{
+const r=tx().getAll();
+r.onsuccess=()=>res(r.result.sort((a,b)=>a.name.localeCompare(b.name,'ar')));
+r.onerror=()=>rej(r.error);
+});
+}
+
+function put(v){
+return new Promise((res,rej)=>{
+const r=tx('readwrite').put(v);
+r.onsuccess=()=>res();
+r.onerror=()=>rej(r.error);
+});
+}
+
+function del(id){
+return new Promise((res,rej)=>{
+const r=tx('readwrite').delete(id);
+r.onsuccess=()=>res();
+r.onerror=()=>rej(r.error);
+});
+}
+
+function esc(s){
+return String(s).replace(/[&<>"']/g,c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[c]));
+}
+
+function formatCreatedAt(value){
+if(!value)return 'وقت الإنشاء غير متوفر';
+const d=new Date(value);
+if(Number.isNaN(d.getTime()))return 'وقت الإنشاء غير متوفر';
+
+return new Intl.DateTimeFormat('ar-IQ',{
+year:'numeric',
+month:'2-digit',
+day:'2-digit',
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit',
+hour12:true
+}).format(d);
+}
+
+async function ensureFolderNumbers(list){
+let maxNo=list.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0);
+
+for(const x of list){
+if(!Number.isInteger(x.folderNo)||x.folderNo<1){
+maxNo++;
+x.folderNo=maxNo;
+await put(x);
+}
+}
+return list;
+}
+
+function hexTint(hex){
+const h=/^#[0-9a-f]{6}$/i.test(hex)?hex:'#d6ad55';
+const n=parseInt(h.slice(1),16);
+
+const r=Math.round(((n>>16)&255)*.13+255*.87);
+const g=Math.round(((n>>8)&255)*.13+255*.87);
+const b=Math.round((n&255)*.13+255*.87);
+
+return `rgb(${r},${g},${b})`;
+}
+
+async function render(){
+let list=await all();
+list=await ensureFolderNumbers(list);
+
+const q=$('search').value.trim().toLocaleLowerCase('ar');
+const filtered=list.filter(x=>x.name.toLocaleLowerCase('ar').includes(q));
+
+$('count').textContent=list.length.toLocaleString('ar')+' مجلد';
+$('pdfCount').textContent=list.filter(x=>x.file).length.toLocaleString('ar')+' ملف PDF';
+
+$('folders').innerHTML=filtered.map(x=>{
+const color=x.color||'#d6ad55';
+const tint=hexTint(color);
+const image=x.image?URL.createObjectURL(x.image):'';
+
+return `
+<article class="folder" style="--folder-color:${esc(color)};--folder-tint:${tint}">
+<div class="folderVisual">
+${image?`<img src="${image}" alt="صورة ${esc(x.name)}">`:'<div class="folderIcon">📁</div>'}
+</div>
+<div class="folderInfo">
+<div class="folderName">
+<span class="folderNumber">${String(x.folderNo).padStart(4,'0')}</span>
+${esc(x.name)}
+</div>
+<div class="folderMeta">🕒 تاريخ الإنشاء: ${esc(formatCreatedAt(x.createdAt))}</div>
+<div class="folderMeta">${x.file?'📄 '+esc(x.fileName||'ملف PDF'):'لا يوجد ملف مرفق'}</div>
+<button class="btn light openFolder" data-id="${esc(x.id)}">فتح المجلد ←</button>
+</div>
+</article>`;
+}).join('');
+
+$('empty').classList.toggle('hidden',filtered.length!==0);
+$('folders').classList.toggle('hidden',filtered.length===0);
+
+document.querySelectorAll('.openFolder').forEach(b=>{
+b.onclick=()=>openFolder(b.dataset.id);
+});
+}
+
+async function openFolder(id){
+const x=(await all()).find(v=>v.id===id);
+if(!x)return;
+
+activeId=id;
+
+$('home').classList.add('hidden');
+$('folders').classList.add('hidden');
+$('empty').classList.add('hidden');
+$('detail').classList.remove('hidden');
+
+$('detailName').innerHTML=
+`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
+
+$('detailCreated').textContent=
+'🕒 تاريخ ووقت إنشاء المجلد: '+formatCreatedAt(x.createdAt);
+
+renderFile(x);
+}
+
+function renderFile(x){
+$('fileArea').innerHTML=x.file?`
+<div class="filebox">
+<div class="filetitle">
+📄 ${esc(x.fileName||'ملف PDF')}
+<div class="folderMeta">${(x.file.size/1024/1024).toFixed(2)} MB</div>
+</div>
+<div class="fileactions">
+<button class="btn primary" id="viewPdf">فتح PDF</button>
+<button class="btn light" id="printPdf">طباعة</button>
+<button class="btn light" id="downloadPdf">تنزيل</button>
+<button class="btn danger" id="removePdf">إزالة الملف</button>
+</div>
+</div>`:'<div class="empty">هذا المجلد لا يحتوي على ملف PDF بعد.</div>';
+
+if(x.file){
+const url=URL.createObjectURL(x.file);
+
+$('viewPdf').onclick=()=>window.open(url,'_blank');
+
+$('printPdf').onclick=()=>{
+const w=window.open(url,'_blank');
+if(w)w.onload=()=>w.print();
+};
+
+$('downloadPdf').onclick=()=>{
+const a=document.createElement('a');
+a.href=url;
+a.download=x.fileName||'document.pdf';
+a.click();
+};
+
+$('removePdf').onclick=async()=>{
+if(confirm('هل تريد إزالة ملف PDF من هذا المجلد؟')){
+delete x.file;
+x.fileName='';
+await put(x);
+renderFile(x);
+await render();
+}
+};
+}
+}
+
+function showModal(rename=false){
+renameMode=rename;
+
+$('modalTitle').textContent=rename?'تعديل بيانات المجلد':'إنشاء مجلد جديد';
+$('folderName').value='';
+$('folderColor').value='#d6ad55';
+$('folderImage').value='';
+$('imageHint').textContent='تقدر تختار صورة من الحاسبة، أو تتركها فارغة ويظهر رمز المجلد.';
+
+if(rename){
+all().then(list=>{
+const x=list.find(v=>v.id===activeId);
+if(x){
+$('folderName').value=x.name;
+$('folderColor').value=x.color||'#d6ad55';
+$('imageHint').textContent=x.image?'توجد صورة حالية؛ اختيار صورة جديدة سيستبدلها.':'لا توجد صورة حالية.';
+}
+});
+}
+
+$('modal').classList.remove('hidden');
+$('folderName').focus();
+}
+
+$('addBtn').onclick=()=>showModal(false);
+
+$('cancelModal').onclick=()=>{
+$('modal').classList.add('hidden');
+};
+
+$('saveFolder').onclick=async()=>{
+const name=$('folderName').value.trim();
+
+if(!name){
+alert('اكتب اسم المجلد أولاً');
+return;
+}
+
+const chosen=$('folderImage').files[0];
+
+if(chosen&&!chosen.type.startsWith('image/')){
+alert('يرجى اختيار ملف صورة');
+return;
+}
+
+if(renameMode){
+const x=(await all()).find(v=>v.id===activeId);
+
+if(x){
+x.name=name;
+x.color=$('folderColor').value;
+
+if(chosen){
+if(chosen.size>8*1024*1024){
+alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');
+return;
+}
+x.image=chosen;
+}
+
+await put(x);
+
+$('detailName').innerHTML=
+`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
+}
+
+}else{
+
+const existing=await all();
+
+const folderNo=existing.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0)+1;
+
+const record={
+id:crypto.randomUUID(),
+name,
+folderNo,
+createdAt:Date.now(),
+color:$('folderColor').value
+};
+
+if(chosen){
+if(chosen.size>8*1024*1024){
+alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');
+return;
+}
+record.image=chosen;
+}
+
+await put(record);
+}
+
+$('modal').classList.add('hidden');
+await render();
+};
+
+$('folderName').onkeydown=e=>{
+if(e.key==='Enter')$('saveFolder').click();
+};
+
+$('search').oninput=render;
+
+$('backBtn').onclick=()=>{
+$('detail').classList.add('hidden');
+$('home').classList.remove('hidden');
+render();
+};
+
+$('renameBtn').onclick=()=>showModal(true);
+
+$('deleteBtn').onclick=async()=>{
+if(confirm('حذف المجلد وملف PDF الموجود بداخله نهائياً؟')){
+await del(activeId);
+activeId=null;
+$('detail').classList.add('hidden');
+$('home').classList.remove('hidden');
+await render();
+}
+};
+
+$('pdfInput').onchange=async e=>{
+const f=e.target.files[0];
+if(!f)return;
+
+if(f.type!=='application/pdf'&&!f.name.toLowerCase().endsWith('.pdf')){
+alert('يرجى اختيار ملف PDF فقط');
+e.target.value='';
+return;
+}
+
+if(f.size>100*1024*1024){
+alert('حجم الملف أكبر من 100 ميغابايت');
+e.target.value='';
+return;
+}
+
+const x=(await all()).find(v=>v.id===activeId);
+
+if(x){
+x.file=f;
+x.fileName=f.name;
+await put(x);
+renderFile(x);
+await render();
+}
+
+e.target.value='';
+};
+
+function blobToBase64(blob){
+return new Promise((res,rej)=>{
+const r=new FileReader();
+r.onload=()=>res(String(r.result).split(',')[1]);
+r.onerror=()=>rej(r.error);
+r.readAsDataURL(blob);
+});
+}
+
+function downloadBlob(blob,name){
+const u=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=u;
+a.download=name;
+a.click();
+setTimeout(()=>URL.revokeObjectURL(u),3000);
+}
+
+$('backupBtn').onclick=async()=>{
+try{
+const list=await all();
+const data=[];
+
+for(const x of list){
+let file=null,image=null;
+
+if(x.file){
+file={
+name:x.fileName||x.file.name,
+type:x.file.type||'application/pdf',
+data:await blobToBase64(x.file)
+};
+}
+
+if(x.image){
+image={
+type:x.image.type||'image/jpeg',
+data:await blobToBase64(x.image)
+};
+}
+
+data.push({
+id:x.id,
+name:x.name,
+folderNo:x.folderNo,
+createdAt:x.createdAt,
+color:x.color||'#d6ad55',
+image,
+file
+});
+}
+
+const blob=new Blob([
+JSON.stringify({
+format:'org-activities-backup-v1',
+folders:data
+})
+],{type:'application/json'});
+
+downloadBlob(
+blob,
+'org-activities-backup-'+new Date().toISOString().slice(0,10)+'.json'
+);
+
+}catch(e){
+alert('تعذر إنشاء النسخة الاحتياطية: '+e.message);
+}
+};
+
+$('restoreBtn').onclick=()=>$('restoreFile').click();
+
+$('restoreFile').onchange=async e=>{
+const f=e.target.files[0];
+if(!f)return;
+
+try{
+const data=JSON.parse(await f.text());
+
+if(data.format!=='org-activities-backup-v1'||!Array.isArray(data.folders)){
+throw Error('صيغة النسخة غير صحيحة');
+}
+
+if(!confirm('ستتم إضافة المجلدات من النسخة الاحتياطية. إذا تكرر المعرّف سيتم استبدال المجلد الموجود.\nمتابعة؟'))return;
+
+for(const v of data.folders){
+let file,image;
+
+if(v.file){
+const raw=atob(v.file.data);
+const arr=new Uint8Array(raw.length);
+for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
+file=new Blob([arr],{type:v.file.type||'application/pdf'});
+}
+
+if(v.image){
+const raw=atob(v.image.data);
+const arr=new Uint8Array(raw.length);
+for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
+image=new Blob([arr],{type:v.image.type||'image/jpeg'});
+}
+
+await put({
+id:v.id||crypto.randomUUID(),
+name:v.name,
+...(Number.isInteger(v.folderNo)?{folderNo:v.folderNo}:{}),
+createdAt:v.createdAt||Date.now(),
+color:v.color||'#d6ad55',
+...(image?{image}:{}),
+...(file?{file,fileName:v.file.name}:{})
+});
+}
+
+await render();
+alert('تمت استعادة النسخة الاحتياطية بنجاح.');
+
+}catch(err){
+alert('تعذرت الاستعادة: '+err.message);
+}finally{
+e.target.value='';
+}
+};
+
+openDB().then(async d=>{
+db=d;
+await render();
+}).catch(e=>{
+alert('تعذر تحميل البيانات: '+(e&&e.message?e.message:e));
+console.error(e);
+});
+
 })();
-</script></body></html>
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>نشاطات المنظمات</title>
-<style>
-:root{--navy:#102b46;--blue:#174c70;--gold:#d6ad55;--bg:#f3f6f9;--ink:#203247;--muted:#6b7b8c;--line:#dce4eb;--white:#fff}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink);text-align:center}header{background:linear-gradient(125deg,var(--navy),var(--blue));color:white;padding:28px 18px 32px;border-bottom:5px solid var(--gold)}.wrap{max-width:1100px;margin:auto;padding:0 16px}header h1{margin:0;font-size:clamp(25px,5vw,36px)}header p{margin:9px 0 0;color:#dce8f1}.hero{margin-top:-17px;background:white;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px #102b4610}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}.search{flex:1;min-width:190px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;text-align:center}.btn{border:0;border-radius:10px;padding:12px 16px;font-weight:bold;cursor:pointer;font-size:14px}.primary{background:var(--navy);color:white}.gold{background:var(--gold);color:#172b3d}.light{background:#edf2f6;color:var(--navy)}.danger{background:#fff0ef;color:#a33129}.stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:13px;margin-top:14px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;margin:20px 0}.folder{background:white;border:2px solid var(--folder-color,var(--line));border-radius:18px;padding:22px 18px;display:flex;flex-direction:column;gap:13px;align-items:center;justify-content:center;text-align:center;min-width:0;min-height:245px;box-shadow:0 5px 16px #102b4610;transition:transform .15s,box-shadow .15s}.folder:hover{transform:translateY(-3px);box-shadow:0 10px 24px #102b4620}.folderVisual{width:100%;height:112px;border-radius:13px;display:grid;place-items:center;background:var(--folder-tint,#edf2f6);overflow:hidden}.folderVisual img{width:100%;height:100%;object-fit:cover}.folderIcon{font-size:58px;line-height:1}.folderName{font-size:17px}.folder .btn{margin-top:8px}.folderInfo{flex:none}.folderIcon{font-size:29px}.folderInfo{min-width:0;width:100%;flex:1;text-align:center}.folderName{font-weight:bold;overflow-wrap:anywhere}.folderMeta{font-size:12px;color:var(--muted);margin-top:6px}.folder button{margin:9px auto 0}.empty{text-align:center;color:var(--muted);padding:45px 10px;background:#fff;border:1px dashed #cbd6df;border-radius:14px}.notice{font-size:12px;color:var(--muted);line-height:1.8;margin:18px 2px}.hidden{display:none!important}.panel{margin:20px 0;background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}.back{margin-bottom:15px}.filebox{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center;background:#f7f9fb;border:1px solid var(--line);border-radius:12px;padding:15px}.filetitle{font-weight:bold;flex:1;min-width:180px;overflow-wrap:anywhere}.fileactions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}.modal{position:fixed;inset:0;background:#07182799;display:grid;place-items:center;padding:15px;z-index:5}.dialog{background:white;border-radius:15px;padding:20px;width:min(440px,100%)}.dialog input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;margin:10px 0;text-align:center}.dialog label{display:block;text-align:center;font-size:13px;color:var(--muted);margin-top:10px}.dialog input[type=color]{height:48px;padding:4px}.dialog input[type=file]{font-size:12px}.dialog .hint{font-size:11px;color:var(--muted);line-height:1.7}.dialogActions{display:flex;gap:8px;justify-content:center}.tag{font-size:11px;background:#edf4f8;color:#28516c;padding:5px 8px;border-radius:20px}.folderNumber{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:28px;padding:0 8px;border-radius:8px;background:#f7efd9;color:#725414;font-weight:bold;font-size:13px;margin-left:8px;direction:ltr}.detailNumber{display:inline-block;background:#f7efd9;color:#725414;border-radius:8px;padding:5px 10px;font-size:14px;margin-left:8px;direction:ltr}
-</style></head>
-<body>
-<header><div class="wrap"><h1>نشاطات المنظمات</h1><p>الأرشيف الإلكتروني للمجلدات والوثائق</p></div></header>
-<main class="wrap">
-<section id="home" class="hero">
- <div class="toolbar"><input id="search" class="search" placeholder="ابحث عن مجلد بالاسم..."><button class="btn primary" id="addBtn">＋ إنشاء مجلد</button><button class="btn light" id="backupBtn">نسخة احتياطية</button><button class="btn light" id="restoreBtn">استعادة نسخة</button><input type="file" id="restoreFile" accept="application/json" class="hidden"></div>
- <div class="stats"><span id="count">0 مجلد</span><span id="pdfCount">0 ملف PDF</span><span class="tag">يعمل دون إنترنت</span></div>
-</section>
-<section id="folders" class="grid"></section>
-<section id="empty" class="empty hidden">لا توجد مجلدات حالياً. اضغط «إنشاء مجلد» لإضافة أول مجلد.</section>
-<section id="detail" class="panel hidden"><button class="btn light back" id="backBtn">→ الرجوع للمجلدات</button><h2 id="detailName"></h2><p id="detailCreated" class="folderMeta"></p><p class="notice">يمكنك إضافة ملف PDF أو استبداله. ستبقى البيانات محفوظة في هذا المتصفح على هذه الحاسبة.</p><div class="toolbar" style="margin-bottom:15px"><label class="btn gold" for="pdfInput">＋ رفع ملف PDF</label><input id="pdfInput" type="file" accept="application/pdf,.pdf" class="hidden"><button class="btn light" id="renameBtn">تعديل الاسم واللون والصورة</button><button class="btn danger" id="deleteBtn">حذف المجلد</button></div><div id="fileArea"></div></section>
-<p class="notice">تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط، ولا تتم مزامنة الملفات مع الإنترنت. لا تمسح بيانات المتصفح أو تستخدم وضع التصفح الخفي. استخدم «نسخة احتياطية» دورياً واحفظها على USB أو مكان آمن.</p>
-</main><footer>نشاطات المنظمات © الأرشيف المحلي</footer>
-<div id="modal" class="modal hidden"><div class="dialog"><h3 id="modalTitle">إنشاء مجلد جديد</h3><input id="folderName" maxlength="120" placeholder="اكتب اسم المجلد"><label for="folderColor">لون المجلد</label><input id="folderColor" type="color" value="#d6ad55"><label for="folderImage">صورة للمجلد (اختياري)</label><input id="folderImage" type="file" accept="image/*"><div class="hint" id="imageHint">تقدر تختار صورة من الحاسبة، أو تتركها فارغة ويظهر رمز المجلد.</div><div class="dialogActions"><button class="btn primary" id="saveFolder">حفظ</button><button class="btn light" id="cancelModal">إلغاء</button></div></div></div>
-<script>
-(()=>{
-'use strict';
-const DB='orgActivitiesLocalDB', STORE='folders', VERSION=1; let db, activeId=null, renameMode=false;
-const $=id=>document.getElementById(id);
-function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB,VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE)){const s=d.createObjectStore(STORE,{keyPath:'id'});s.createIndex('name','name',{unique:false});}};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
-function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE)}
-function all(){return new Promise((res,rej)=>{const r=tx().getAll();r.onsuccess=()=>res(r.result.sort((a,b)=>a.name.localeCompare(b.name,'ar')));r.onerror=()=>rej(r.error);});}
-function put(v){return new Promise((res,rej)=>{const r=tx('readwrite').put(v);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
-function del(id){return new Promise((res,rej)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function formatCreatedAt(value){if(!value)return 'وقت الإنشاء غير متوفر';const d=new Date(value);if(Number.isNaN(d.getTime()))return 'وقت الإنشاء غير متوفر';return new Intl.DateTimeFormat('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}).format(d);}
-async function ensureFolderNumbers(list){let maxNo=list.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0);for(const x of list){if(!Number.isInteger(x.folderNo)||x.folderNo<1){maxNo++;x.folderNo=maxNo;await put(x);}}return list;}
-async function render(){let list=await all();list=await ensureFolderNumbers(list);const q=$('search').value.trim().toLocaleLowerCase('ar');const filtered=list.filter(x=>x.name.toLocaleLowerCase('ar').includes(q));$('count').textContent=list.length.toLocaleString('ar')+' مجلد';$('pdfCount').textContent=list.filter(x=>x.file).length.toLocaleString('ar')+' ملف PDF';$('folders').innerHTML=filtered.map(x=>{const color=x.color||'#d6ad55';const tint=hexTint(color);const image=x.image?URL.createObjectURL(x.image):'';return `<article class="folder" style="--folder-color:${esc(color)};--folder-tint:${tint}"><div class="folderVisual">${image?`<img src="${image}" alt="صورة ${esc(x.name)}">`:'<div class="folderIcon">📁</div>'}</div><div class="folderInfo"><div class="folderName"><span class="folderNumber">${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}</div><div class="folderMeta">🕒 تاريخ الإنشاء: ${esc(formatCreatedAt(x.createdAt))}</div><div class="folderMeta">${x.file?'📄 '+esc(x.fileName||'ملف PDF'):'لا يوجد ملف مرفق'}</div><button class="btn light openFolder" data-id="${esc(x.id)}">فتح المجلد ←</button></div></article>`}).join('');$('empty').classList.toggle('hidden',filtered.length!==0);$('folders').classList.toggle('hidden',filtered.length===0);document.querySelectorAll('.openFolder').forEach(b=>b.onclick=()=>openFolder(b.dataset.id));}
-function hexTint(hex){const h=/^#[0-9a-f]{6}$/i.test(hex)?hex:'#d6ad55';const n=parseInt(h.slice(1),16);const r=Math.round(((n>>16)&255)*.13+255*.87),g=Math.round(((n>>8)&255)*.13+255*.87),b=Math.round((n&255)*.13+255*.87);return `rgb(${r},${g},${b})`;}
-async function openFolder(id){const x=(await all()).find(v=>v.id===id);if(!x)return;activeId=id;$('home').classList.add('hidden');$('folders').classList.add('hidden');$('empty').classList.add('hidden');$('detail').classList.remove('hidden');$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;$('detailCreated').textContent='🕒 تاريخ ووقت إنشاء المجلد: '+formatCreatedAt(x.createdAt);renderFile(x);}
-function renderFile(x){$('fileArea').innerHTML=x.file?`<div class="filebox"><div class="filetitle">📄 ${esc(x.fileName||'ملف PDF')}<div class="folderMeta">${(x.file.size/1024/1024).toFixed(2)} MB</div></div><div class="fileactions"><button class="btn primary" id="viewPdf">فتح PDF</button><button class="btn light" id="printPdf">طباعة</button><button class="btn light" id="downloadPdf">تنزيل</button><button class="btn danger" id="removePdf">إزالة الملف</button></div></div>`:'<div class="empty">هذا المجلد لا يحتوي على ملف PDF بعد.</div>';
-if(x.file){const url=URL.createObjectURL(x.file);$('viewPdf').onclick=()=>window.open(url,'_blank');$('printPdf').onclick=()=>{const w=window.open(url,'_blank');if(w)w.onload=()=>w.print();};$('downloadPdf').onclick=()=>{const a=document.createElement('a');a.href=url;a.download=x.fileName||'document.pdf';a.click();};$('removePdf').onclick=async()=>{if(confirm('هل تريد إزالة ملف PDF من هذا المجلد؟')){delete x.file;x.fileName='';await put(x);renderFile(x);await render();}};}}
-function showModal(rename=false){renameMode=rename;$('modalTitle').textContent=rename?'تعديل بيانات المجلد':'إنشاء مجلد جديد';$('folderName').value='';$('folderColor').value='#d6ad55';$('folderImage').value='';$('imageHint').textContent='تقدر تختار صورة من الحاسبة، أو تتركها فارغة ويظهر رمز المجلد.';if(rename){all().then(list=>{const x=list.find(v=>v.id===activeId);if(x){$('folderName').value=x.name;$('folderColor').value=x.color||'#d6ad55';$('imageHint').textContent=x.image?'توجد صورة حالية؛ اختيار صورة جديدة سيستبدلها.':'لا توجد صورة حالية.';}});} $('modal').classList.remove('hidden');$('folderName').focus();}
-$('addBtn').onclick=()=>showModal(false);$('cancelModal').onclick=()=>$('modal').classList.add('hidden');$('saveFolder').onclick=async()=>{const name=$('folderName').value.trim();if(!name){alert('اكتب اسم المجلد أولاً');return;}const chosen=$('folderImage').files[0];if(chosen&& !chosen.type.startsWith('image/')){alert('يرجى اختيار ملف صورة');return;}if(renameMode){const x=(await all()).find(v=>v.id===activeId);if(x){x.name=name;x.color=$('folderColor').value;if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}x.image=chosen;}await put(x);$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;}}else{const existing=await all();const folderNo=existing.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0)+1;const record={id:crypto.randomUUID(),name,folderNo,createdAt:Date.now(),color:$('folderColor').value};if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}record.image=chosen;}await put(record);} $('modal').classList.add('hidden');await render();};$('folderName').onkeydown=e=>{if(e.key==='Enter')$('saveFolder').click();};
-$('search').oninput=render;$('backBtn').onclick=()=>{$('detail').classList.add('hidden');$('home').classList.remove('hidden');render();};$('renameBtn').onclick=()=>showModal(true);$('deleteBtn').onclick=async()=>{if(confirm('حذف المجلد وملف PDF الموجود بداخله نهائياً؟')){await del(activeId);activeId=null;$('detail').classList.add('hidden');$('home').classList.remove('hidden');await render();}};
-$('pdfInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;if(f.type!=='application/pdf'&&!f.name.toLowerCase().endsWith('.pdf')){alert('يرجى اختيار ملف PDF فقط');e.target.value='';return;}if(f.size>100*1024*1024){alert('حجم الملف أكبر من 100 ميغابايت');e.target.value='';return;}const x=(await all()).find(v=>v.id===activeId);if(x){x.file=f;x.fileName=f.name;await put(x);renderFile(x);await render();}e.target.value='';};
-$('backupBtn').onclick=async()=>{try{const list=await all(), data=[];for(const x of list){let file=null,image=null;if(x.file)file={name:x.fileName||x.file.name,type:x.file.type||'application/pdf',data:await blobToBase64(x.file)};if(x.image)image={type:x.image.type||'image/jpeg',data:await blobToBase64(x.image)};data.push({id:x.id,name:x.name,folderNo:x.folderNo,createdAt:x.createdAt,color:x.color||'#d6ad55',image,file});}const blob=new Blob([JSON.stringify({format:'org-activities-backup-v1',folders:data})],{type:'application/json'});downloadBlob(blob,'org-activities-backup-'+new Date().toISOString().slice(0,10)+'.json');}catch(e){alert('تعذر إنشاء النسخة الاحتياطية: '+e.message);}};
-function blobToBase64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=()=>rej(r.error);r.readAsDataURL(blob);});}
-function downloadBlob(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),3000);}
-$('restoreBtn').onclick=()=>$('restoreFile').click();$('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.format!=='org-activities-backup-v1'||!Array.isArray(data.folders))throw Error('صيغة النسخة غير صحيحة');if(!confirm('ستتم إضافة المجلدات من النسخة الاحتياطية. إذا تكرر المعرّف سيتم استبدال المجلد الموجود. متابعة؟'))return;for(const v of data.folders){let file,image;if(v.file){const raw=atob(v.file.data),arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);file=new Blob([arr],{type:v.file.type||'application/pdf'});}if(v.image){const raw=atob(v.image.data),arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);image=new Blob([arr],{type:v.image.type||'image/jpeg'});}await put({id:v.id||crypto.randomUUID(),name:v.name,...(Number.isInteger(v.folderNo)?{folderNo:v.folderNo}:{}),createdAt:v.createdAt||Date.now(),color:v.color||'#d6ad55',...(image?{image}:{}),...(file?{file,fileName:v.file.name}:{})});}await render();alert('تمت استعادة النسخة الاحتياطية بنجاح.');}catch(err){alert('تعذرت الاستعادة: '+err.message);}finally{e.target.value='';}};
-openDB().then(async d=>{db=d;await render();}).catch(e=>{alert('تعذر تحميل البيانات: '+(e&&e.message?e.message:e));console.error(e);});
-})();
-</script></body></html>
+</script>
+
+</body>
+</html>
