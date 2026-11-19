@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -7,42 +8,203 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-:root{--navy:#0c3b5e;--blue:#1b6ca8;--gold:#d6ad55;--bg:#eef5fb;--card:#ffffff;--subcard:#f6fafe;--ink:#162b3d;--muted:#5a7085;--line:#cfe0ee;--badge-bg:#e1eef8;--badge-ink:#1b4f78;--shadow:0 8px 24px rgba(12,59,94,0.08)}
-[data-theme="dark"]{--navy:#091e32;--blue:#13436b;--gold:#e2b857;--bg:#0b1724;--card:#122336;--subcard:#182e46;--ink:#e6f0fa;--muted:#94aec7;--line:#243f5c;--badge-bg:#1c3854;--badge-ink:#9fd0f7;--shadow:0 8px 24px rgba(0,0,0,0.35)}
+:root{
+--navy:#0c3b5e;
+--blue:#1b6ca8;
+--gold:#d6ad55;
+--bg:#eef5fb;
+--card:#ffffff;
+--subcard:#f6fafe;
+--ink:#162b3d;
+--muted:#5a7085;
+--line:#cfe0ee;
+--badge-bg:#e1eef8;
+--badge-ink:#1b4f78;
+--shadow:0 8px 24px rgba(12,59,94,0.08);
+}
+[data-theme="dark"]{
+--navy:#091e32;
+--blue:#13436b;
+--gold:#e2b857;
+--bg:#0b1724;
+--card:#122336;
+--subcard:#182e46;
+--ink:#e6f0fa;
+--muted:#94aec7;
+--line:#243f5c;
+--badge-bg:#1c3854;
+--badge-ink:#9fd0f7;
+--shadow:0 8px 24px rgba(0,0,0,0.35);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:'Cairo',Tahoma,Arial,sans-serif;color:var(--ink);text-align:center;transition:background .25s,color .25s}
-header{background:linear-gradient(125deg,var(--navy),var(--blue));color:#fff;padding:38px 18px 40px;border-bottom:5px solid var(--gold);position:relative}
+body{
+margin:0;
+background:var(--bg);
+font-family:'Cairo',Tahoma,Arial,sans-serif;
+color:var(--ink);
+text-align:center;
+transition:background .25s,color .25s
+}
+header{
+background:linear-gradient(125deg,var(--navy),var(--blue));
+color:white;
+padding:38px 18px 40px;
+border-bottom:5px solid var(--gold);
+position:relative
+}
 header h1{margin:0;font-size:clamp(24px,5vw,35px);font-weight:800}
 header p{margin:6px 0 0;color:#dce8f1;font-size:15px}
 .wrap{max-width:1120px;margin:auto;padding:0 16px}
-.hero{margin-top:-20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;justify-content:center}
-.search{flex:1;min-width:200px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--subcard);color:var(--ink);font-family:inherit;font-size:14px;text-align:center}
+.hero{
+margin-top:-20px;
+background:var(--card);
+border:1px solid var(--line);
+border-radius:16px;
+padding:18px;
+box-shadow:var(--shadow);
+transition:background .25s,border-color .25s
+}
+.toolbar{
+display:flex;
+gap:9px;
+flex-wrap:wrap;
+align-items:center;
+justify-content:center
+}
+.search{
+flex:1;
+min-width:200px;
+padding:11px 14px;
+border:1px solid var(--line);
+border-radius:10px;
+background:var(--subcard);
+color:var(--ink);
+font-family:inherit;
+font-size:14px;
+text-align:center
+}
 .search::placeholder{color:var(--muted)}
-.btn{border:0;border-radius:10px;padding:10px 14px;font-family:inherit;font-weight:700;cursor:pointer;font-size:13px;transition:transform .15s}
+.btn{
+border:0;
+border-radius:10px;
+padding:10px 14px;
+font-family:inherit;
+font-weight:700;
+cursor:pointer;
+font-size:13px;
+transition:transform .15s,opacity .15s,background .2s
+}
 .btn:active{transform:scale(0.96)}
-.primary{background:var(--blue);color:#fff}
+.primary{background:var(--blue);color:white}
 .gold{background:var(--gold);color:#142433}
-.green{background:#0f766e;color:#fff}
+.green{background:#0f766e;color:white}
 .light{background:var(--badge-bg);color:var(--badge-ink)}
 .danger{background:#471d20;color:#ffb4b8}
 body:not([data-theme="dark"]) .danger{background:#fff0ef;color:#a33129}
-.stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:13px;margin-top:14px;font-weight:600}
-.workspace-box{min-height:360px;border:2px dashed var(--line);border-radius:18px;background:var(--card);padding:24px;margin:22px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:18px;align-content:start}
-.folder{background:var(--subcard);border:2px solid var(--folder-color,var(--line));border-radius:18px;padding:20px 15px;display:flex;flex-direction:column;gap:9px;align-items:center;justify-content:center;text-align:center;min-width:0;box-shadow:var(--shadow);transition:transform .2s;cursor:pointer}
+.stats{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+justify-content:center;
+color:var(--muted);
+font-size:13px;
+margin-top:14px;
+font-weight:600
+}
+.workspace-box{
+min-height:360px;
+border:2px dashed var(--line);
+border-radius:18px;
+background:var(--card);
+padding:24px;
+margin:22px 0;
+transition:background .25s,border-color .25s
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(225px,1fr));
+gap:18px;
+align-content:start
+}
+.folder{
+background:var(--subcard);
+border:2px solid var(--folder-color,var(--line));
+border-radius:18px;
+padding:20px 15px;
+display:flex;
+flex-direction:column;
+gap:9px;
+align-items:center;
+justify-content:center;
+text-align:center;
+min-width:0;
+box-shadow:var(--shadow);
+transition:transform .2s,box-shadow .2s,background .25s;
+cursor:pointer
+}
 .folder:hover{transform:translateY(-4px)}
 .folder:active{transform:scale(0.97)}
-.animated-folder{width:92px;height:68px;position:relative;perspective:600px;margin:8px auto 4px}
-.folder-back{width:100%;height:100%;background:var(--folder-color,#d97706);filter:brightness(0.85);border-radius:8px 8px 10px 10px;position:relative;box-shadow:0 6px 12px rgba(0,0,0,0.2)}
-.folder-back::before{content:'';position:absolute;top:-9px;right:0;width:38px;height:11px;background:inherit;border-radius:6px 6px 0 0}
-.folder-paper{position:absolute;bottom:6px;left:10px;right:10px;height:52px;background:#fff;border-radius:4px;box-shadow:0 2px 5px rgba(0,0,0,0.15);transition:transform .35s cubic-bezier(0.34,1.56,0.64,1)}
-.folder-front{position:absolute;inset:0;background:var(--folder-color,#f59e0b);border-radius:8px 8px 10px 10px;transform-origin:bottom center;transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 -2px 6px rgba(0,0,0,0.12)}
+.animated-folder{
+width:92px;
+height:68px;
+position:relative;
+perspective:600px;
+margin:8px auto 4px
+}
+.folder-back{
+width:100%;
+height:100%;
+background:var(--folder-color,#d97706);
+filter:brightness(0.85);
+border-radius:8px 8px 10px 10px;
+position:relative;
+box-shadow:0 6px 12px rgba(0,0,0,0.2)
+}
+.folder-back::before{
+content:'';
+position:absolute;
+top:-9px;
+right:0;
+width:38px;
+height:11px;
+background:inherit;
+border-radius:6px 6px 0 0
+}
+.folder-paper{
+position:absolute;
+bottom:6px;
+left:10px;
+right:10px;
+height:52px;
+background:#ffffff;
+border-radius:4px;
+box-shadow:0 2px 5px rgba(0,0,0,0.15);
+transition:transform .35s cubic-bezier(0.34,1.56,0.64,1)
+}
+.folder-front{
+position:absolute;
+inset:0;
+background:var(--folder-color,#f59e0b);
+border-radius:8px 8px 10px 10px;
+transform-origin:bottom center;
+transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
+box-shadow:0 -2px 6px rgba(0,0,0,0.12)
+}
 .folder:hover .folder-front,.folder:active .folder-front{transform:rotateX(-38deg)}
 .folder:hover .folder-paper,.folder:active .folder-paper{transform:translateY(-14px)}
-.folderVisual{width:100%;height:110px;border-radius:13px;display:grid;place-items:center;background:var(--badge-bg);overflow:hidden}
+.folderVisual{
+width:100%;
+height:110px;
+border-radius:13px;
+display:grid;
+place-items:center;
+background:var(--badge-bg);
+overflow:hidden
+}
 .folderVisual img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.folder:hover .folderVisual img{transform:scale(1.06)}
 .folderInfo{min-width:0;width:100%;flex:1;text-align:center}
 .folderName{font-size:16px;font-weight:700;overflow-wrap:anywhere}
 .folderMeta{font-size:11px;color:var(--muted);margin-top:4px}
@@ -51,9 +213,22 @@ body:not([data-theme="dark"]) .danger{background:#fff0ef;color:#a33129}
 .hidden{display:none!important}
 .panel{margin:20px 0;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px}
 .back{margin-bottom:12px}
+
 .inner-search-box{margin:14px auto;max-width:540px}
 .files-list{display:flex;flex-direction:column;gap:12px;margin-top:15px}
-.file-row{background:var(--subcard);border:1px solid var(--line);border-right:4px solid var(--blue);border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;text-align:right}
+.file-row{
+background:var(--subcard);
+border:1px solid var(--line);
+border-right:4px solid var(--blue);
+border-radius:12px;
+padding:14px 16px;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+text-align:right
+}
 .file-details{flex:1;min-width:220px}
 .file-main-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;overflow-wrap:anywhere;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .type-pill{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:700}
@@ -65,6 +240,7 @@ body:not([data-theme="dark"]) .danger{background:#fff0ef;color:#a33129}
 .file-badges{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted)}
 .file-badge{background:var(--badge-bg);color:var(--badge-ink);padding:4px 10px;border-radius:6px;display:inline-flex;align-items:center;gap:4px}
 .fileactions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+
 footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 .modal{position:fixed;inset:0;background:rgba(4,12,22,0.72);display:grid;place-items:center;padding:15px;z-index:50;overflow-y:auto}
 .dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:15px;padding:22px;width:min(450px,100%);box-shadow:0 15px 35px rgba(0,0,0,0.35)}
@@ -79,13 +255,35 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 .folderNumber{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 8px;border-radius:8px;background:#f7efd9;color:#725414;font-weight:700;font-size:12px;margin-left:6px;direction:ltr}
 .detailNumber{display:inline-block;background:#f7efd9;color:#725414;border-radius:8px;padding:4px 10px;font-size:14px;margin-left:8px;direction:ltr}
 .empty-inner{text-align:center;color:var(--muted);padding:35px 10px;border:1px dashed var(--line);border-radius:12px;background:var(--subcard)}
-.theme-toggle{position:fixed;top:14px;right:14px;z-index:9999;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.35);color:#fff;padding:7px 13px;border-radius:22px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:flex;align-items:center;gap:5px}
+
+.theme-toggle{
+position:fixed;
+top:14px;
+right:14px;
+z-index:9999;
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(6px);
+border:1px solid rgba(255,255,255,0.35);
+color:#ffffff;
+padding:7px 13px;
+border-radius:22px;
+font-family:inherit;
+font-size:12px;
+font-weight:700;
+cursor:pointer;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+display:flex;
+align-items:center;
+gap:5px
+}
+.theme-toggle:hover{background:rgba(255,255,255,0.28)}
+
 .iraq-flag-corner{position:fixed;top:14px;left:14px;z-index:9999;perspective:400px}
 .flag-wave{width:70px;height:46px;border-radius:4px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.28);display:flex;flex-direction:column;position:relative;transform-origin:left center;animation:waveFlag 2.5s ease-in-out infinite alternate}
 .stripe{flex:1;width:100%}
-.stripe.red{background:#ce1126}
-.stripe.white{background:#fff;display:flex;align-items:center;justify-content:center}
-.stripe.black{background:#000}
+.stripe.red{background-color:#ce1126}
+.stripe.white{background-color:#ffffff;display:flex;align-items:center;justify-content:center}
+.stripe.black{background-color:#000000}
 .takbir{color:#007a3d;font-family:'Cairo',Tahoma,sans-serif;font-size:9px;font-weight:800;line-height:1}
 .gloss{position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,0) 20%,rgba(255,255,255,0.35) 45%,rgba(0,0,0,0.15) 65%,rgba(255,255,255,0) 85%);background-size:200% 100%;animation:shimmerWave 2.5s ease-in-out infinite alternate;pointer-events:none}
 @keyframes waveFlag{0%{transform:rotateY(-8deg) skewY(-2deg)}50%{transform:rotateY(8deg) skewY(2deg)}100%{transform:rotateY(-5deg) skewY(-1deg)}}
@@ -95,6 +293,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 <body>
 
 <button id="themeBtn" class="theme-toggle" title="تبديل المظهر">🌙 الوضع الليلي</button>
+
 <div class="iraq-flag-corner" title="العراق">
   <div class="flag-wave">
     <div class="stripe red"></div>
@@ -129,22 +328,31 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 </div>
 </section>
 
-<section id="workspaceBox" class="workspace-box"><div id="folders" class="grid"></div></section>
+<section id="workspaceBox" class="workspace-box">
+  <div id="folders" class="grid"></div>
+</section>
 
 <section id="detail" class="panel hidden">
 <button class="btn light back" id="backBtn">→ الرجوع للمجلدات</button>
 <h2 id="detailName" style="margin:6px 0"></h2>
 <p id="detailCreated" class="folderMeta"></p>
+
 <div class="toolbar" style="margin:15px 0">
 <button class="btn gold" id="openAddFileModalBtn">＋ إضافة ملف للقائمة</button>
 <button class="btn light" id="renameBtn">تعديل بيانات المجلد</button>
 <button class="btn danger" id="deleteBtn">حذف المجلد</button>
 </div>
-<div class="inner-search-box"><input id="fileSearch" class="search" placeholder="🔍 ابحث داخل الملفات (باسم الملف، صاحب الملف، أو التاريخ)..."></div>
+
+<div class="inner-search-box">
+  <input id="fileSearch" class="search" placeholder="🔍 ابحث داخل الملفات (باسم الملف، صاحب الملف، أو التاريخ)...">
+</div>
+
 <div id="fileArea"></div>
 </section>
 
-<p class="notice">تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.</p>
+<p class="notice">
+تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
+</p>
 </main>
 
 <footer>نشاطات المنظمات © الأرشيف المحلي</footer>
@@ -184,77 +392,458 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 </div>
 </div>
 </div>
-
 <script>
 (()=>{
 'use strict';
-const themeBtn=document.getElementById('themeBtn');
-function applyTheme(t){
-  if(t==='dark'){document.body.setAttribute('data-theme','dark');themeBtn.textContent='☀️ الوضع النهاري';}
-  else{document.body.removeAttribute('data-theme');themeBtn.textContent='🌙 الوضع الليلي';}
-}
-applyTheme(localStorage.getItem('org_archive_theme')||'light');
-themeBtn.onclick=()=>{const n=document.body.getAttribute('data-theme')==='dark'?'light':'dark';localStorage.setItem('org_archive_theme',n);applyTheme(n);};
 
-const DB='orgActivitiesLocalDB',STORE='folders',VERSION=1;
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(t){
+  if(t === 'dark'){
+    document.body.setAttribute('data-theme','dark');
+    themeBtn.textContent = '☀️ الوضع النهاري';
+  } else {
+    document.body.removeAttribute('data-theme');
+    themeBtn.textContent = '🌙 الوضع الليلي';
+  }
+}
+applyTheme(localStorage.getItem('org_archive_theme') || 'light');
+themeBtn.onclick = () => {
+  const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('org_archive_theme', next);
+  applyTheme(next);
+};
+
+const DB='orgActivitiesLocalDB';
+const STORE='folders';
+const VERSION=1;
+
 let db,activeId=null,renameMode=false,editFileIdx=null;
 const $=id=>document.getElementById(id);
 
-function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,VERSION);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'}).createIndex('name','name',{unique:false});};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
-function tx(m='readonly'){return db.transaction(STORE,m).objectStore(STORE);}
+function openDB(){
+return new Promise((resolve,reject)=>{
+const req=indexedDB.open(DB,VERSION);
+req.onupgradeneeded=()=>{
+const d=req.result;
+if(!d.objectStoreNames.contains(STORE)){
+const s=d.createObjectStore(STORE,{keyPath:'id'});
+s.createIndex('name','name',{unique:false});
+}
+};
+req.onsuccess=()=>resolve(req.result);
+req.onerror=()=>reject(req.error);
+});
+}
+
+function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE);}
 function all(){return new Promise((res,rej)=>{const r=tx().getAll();r.onsuccess=()=>res(r.result.sort((a,b)=>a.name.localeCompare(b.name,'ar')));r.onerror=()=>rej(r.error);});}
 function put(v){return new Promise((res,rej)=>{const r=tx('readwrite').put(v);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
 function del(id){return new Promise((res,rej)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function fmtDate(v){if(!v)return '';const d=new Date(v);return Number.isNaN(d.getTime())?'':new Intl.DateTimeFormat('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:true}).format(d);}
-function getFiles(f){if(Array.isArray(f.files))return f.files;if(f.file)return[{id:'1',title:f.fileName||'ملف',owner:'غير محدد',date:'',blob:f.file,origName:f.fileName||'doc.pdf'}];return[];}
 
-function fileType(f){
-  const n=(f.origName||(f.blob&&f.blob.name)||'').toLowerCase(),m=(f.blob&&f.blob.type)||'';
-  if(m.includes('pdf')||n.endsWith('.pdf'))return{l:'PDF',c:'type-pdf',p:true,e:'.pdf'};
-  if(m.includes('sheet')||m.includes('excel')||/\.(xlsx|xls|csv)$/.test(n))return{l:'Excel',c:'type-excel',p:false,e:n.match(/\.[a-z0-9]+$/)?.[0]||'.xlsx'};
-  if(m.includes('presentation')||m.includes('powerpoint')||/\.(pptx|ppt)$/.test(n))return{l:'PowerPoint',c:'type-ppt',p:false,e:n.match(/\.[a-z0-9]+$/)?.[0]||'.pptx'};
-  if(m.includes('word')||m.includes('document')||/\.(docx|doc)$/.test(n))return{l:'Word',c:'type-word',p:false,e:n.match(/\.[a-z0-9]+$/)?.[0]||'.docx'};
-  if(m.startsWith('image/')||/\.(jpg|jpeg|png|webp|gif)$/.test(n))return{l:'صورة',c:'type-img',p:true,e:n.match(/\.[a-z0-9]+$/)?.[0]||'.jpg'};
-  return{l:'ملف',c:'type-pdf',p:false,e:''};
+function formatCreatedAt(value){
+if(!value)return 'وقت الإنشاء غير متوفر';
+const d=new Date(value);
+if(Number.isNaN(d.getTime()))return 'وقت الإنشاء غير متوفر';
+return new Intl.DateTimeFormat('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:true}).format(d);
+}
+
+function getFolderFiles(folder){
+if(Array.isArray(folder.files)) return folder.files;
+if(folder.file) return [{id:'legacy_1',title:folder.fileName||'ملف PDF',owner:'غير محدد',date:'',blob:folder.file,origName:folder.fileName||'document.pdf'}];
+return [];
+}
+
+function detectFileType(f){
+const name = (f.origName || (f.blob && f.blob.name) || '').toLowerCase();
+const mime = (f.blob && f.blob.type) || '';
+if(mime.includes('pdf') || name.endsWith('.pdf')) return {label:'PDF', cls:'type-pdf', canPreview:true, ext:'.pdf'};
+if(mime.includes('spreadsheet') || mime.includes('excel') || name.endsWith('.xlsx') || name.endsWith('.xls') || name.endsWith('.csv')) return {label:'Excel', cls:'type-excel', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.xlsx'};
+if(mime.includes('presentation') || mime.includes('powerpoint') || name.endsWith('.pptx') || name.endsWith('.ppt')) return {label:'PowerPoint', cls:'type-ppt', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.pptx'};
+if(mime.includes('word') || mime.includes('document') || name.endsWith('.docx') || name.endsWith('.doc')) return {label:'Word', cls:'type-word', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.docx'};
+if(mime.startsWith('image/') || /\.(jpg|jpeg|png|webp|gif)$/i.test(name)) return {label:'صورة', cls:'type-img', canPreview:true, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.jpg'};
+return {label:'ملف', cls:'type-pdf', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || ''};
+}
+
+async function ensureFolderNumbers(list){
+let maxNo=list.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0);
+for(const x of list){
+if(!Number.isInteger(x.folderNo)||x.folderNo<1){maxNo++;x.folderNo=maxNo;await put(x);}
+}
+return list;
 }
 
 async function render(){
-  let list=await all();
-  let maxNo=list.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0);
-  for(const x of list){if(!Number.isInteger(x.folderNo)||x.folderNo<1){x.folderNo=++maxNo;await put(x);}}
-  const q=$('search').value.trim().toLocaleLowerCase('ar');
-  const filtered=list.filter(x=>x.name.toLocaleLowerCase('ar').includes(q));
-  const total=list.reduce((s,x)=>s+getFiles(x).length,0);
-  $('count').textContent=list.length+' مجلد';
-  $('pdfCount').textContent=total+' ملف مرفق';
-  $('folders').innerHTML=filtered.map(x=>{
-    const col=x.color||'#f59e0b',img=x.image?URL.createObjectURL(x.image):'',cnt=getFiles(x).length;
-    const vis=img?`<div class="folderVisual"><img src="${img}"></div>`:`<div class="animated-folder"><div class="folder-back"><div class="folder-paper"></div><div class="folder-front"></div></div></div>`;
-    return `<article class="folder" data-id="${esc(x.id)}" style="--folder-color:${esc(col)}">${vis}<div class="folderInfo"><div class="folderName"><span class="folderNumber">${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}</div><div class="folderMeta">🕒 ${esc(fmtDate(x.createdAt))}</div><div class="folderMeta">${cnt?'📄 الملفات: '+cnt:'فارغ'}</div><button class="btn light">فتح المجلد ←</button></div></article>`;
-  }).join('');
-  document.querySelectorAll('.folder').forEach(c=>{c.onclick=()=>setTimeout(()=>openFolder(c.dataset.id),150);});
+let list=await all();
+list=await ensureFolderNumbers(list);
+const q=$('search').value.trim().toLocaleLowerCase('ar');
+const filtered=list.filter(x=>x.name.toLocaleLowerCase('ar').includes(q));
+const totalDocs = list.reduce((sum, x) => sum + getFolderFiles(x).length, 0);
+
+$('count').textContent=list.length.toLocaleString('ar')+' مجلد';
+$('pdfCount').textContent=totalDocs.toLocaleString('ar')+' ملف مرفق';
+
+$('folders').innerHTML=filtered.map(x=>{
+const color=x.color||'#f59e0b';
+const image=x.image?URL.createObjectURL(x.image):'';
+const filesCount = getFolderFiles(x).length;
+const visualHtml = image
+  ? `<div class="folderVisual"><img src="${image}" alt="صورة ${esc(x.name)}"></div>`
+  : `<div class="animated-folder"><div class="folder-back"><div class="folder-paper"></div><div class="folder-front"></div></div></div>`;
+
+return `<article class="folder" data-id="${esc(x.id)}" style="--folder-color:${esc(color)}">
+${visualHtml}
+<div class="folderInfo">
+<div class="folderName"><span class="folderNumber">${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}</div>
+<div class="folderMeta">🕒 ${esc(formatCreatedAt(x.createdAt))}</div>
+<div class="folderMeta">${filesCount > 0 ? '📄 عدد الملفات: ' + filesCount : 'فارغ (لا توجد ملفات)'}</div>
+<button class="btn light openFolder" data-id="${esc(x.id)}">فتح المجلد ←</button>
+</div>
+</article>`;
+}).join('');
+
+document.querySelectorAll('.folder').forEach(card=>{
+card.onclick=()=>{const id=card.dataset.id;setTimeout(()=>openFolder(id),180);};
+});
 }
 
 async function openFolder(id){
-  const x=(await all()).find(v=>v.id===id);if(!x)return;
-  activeId=id;$('fileSearch').value='';
-  $('home').classList.add('hidden');$('workspaceBox').classList.add('hidden');$('detail').classList.remove('hidden');
-  $('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
-  $('detailCreated').textContent='🕒 تاريخ الإنشاء: '+fmtDate(x.createdAt);
-  renderFiles(x);
+const x=(await all()).find(v=>v.id===id);
+if(!x)return;
+activeId=id;
+$('fileSearch').value='';
+$('home').classList.add('hidden');
+$('workspaceBox').classList.add('hidden');
+$('detail').classList.remove('hidden');
+$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
+$('detailCreated').textContent='🕒 تاريخ ووقت إنشاء المجلد: '+formatCreatedAt(x.createdAt);
+renderFileList(x);
 }
 
-function renderFiles(x){
-  const files=getFiles(x),fq=$('fileSearch').value.trim().toLocaleLowerCase('ar');
-  const rows=files.map((f,i)=>({f,i})).filter(({f})=>!fq||(f.title||'').toLocaleLowerCase('ar').includes(fq)||(f.owner||'').toLocaleLowerCase('ar').includes(fq)||(f.date||'').includes(fq));
-  if(!files.length){$('fileArea').innerHTML='<div class="empty-inner">لا توجد ملفات بعد. اضغط «＋ إضافة ملف للقائمة».</div>';return;}
-  if(!rows.length){$('fileArea').innerHTML='<div class="empty-inner">لا توجد نتائج مطابقة.</div>';return;}
-  $('fileArea').innerHTML='<div class="files-list">'+rows.map(({f,i})=>{
-    const ft=fileType(f),sz=f.blob?(f.blob.size/1024/1024).toFixed(2)+' MB':'';
-    return `<div class="file-row"><div class="file-details"><div class="file-main-title"><span class="type-pill ${ft.c}">${ft.l}</span><span>${esc(f.title)}</span></div><div class="file-badges"><span class="file-badge">👤 <b>صاحب الملف:</b> ${esc(f.owner||'غير محدد')}</span><span class="file-badge">📅 <b>تاريخ الحفظ:</b> ${esc(f.date||'غير محدد')}</span>${sz?`<span class="file-badge">💾 ${sz}</span>`:''}</div></div><div class="fileactions">${ft.p?`<button class="btn primary v-btn" data-i="${i}">معاينة</button><button class="btn light p-btn" data-i="${i}">طباعة</button>`:''}<button class="btn light d-btn" data-i="${i}">تنزيل</button><button class="btn gold e-btn" data-i="${i}">تعديل</button><button class="btn danger x-btn" data-i="${i}">حذف</button></div></div>`;
-  }).join('')+'</div>';
+function renderFileList(x){
+const allFiles = getFolderFiles(x);
+const fq = $('fileSearch').value.trim().toLocaleLowerCase('ar');
 
-  document.querySelectorAll('.v-btn').forEach(b=>b.onclick=()=>{const f=files[b.dataset.i];if(f&&f.blob)window.open(URL.createObjectURL(f.blob),'_blank');});
-  document.querySelectorAll('.p-btn').forEach(b=>b.onclick=()=>{const f=files[b.dataset.i];if(f&&f.blob){const w=window.open(URL.createObjectURL(f.blob),'_blank');if(w)w.onload=()=>w.print();}});
-  document.querySelectorAll('.d-btn').forEach(b=>b.onclick=()=>{const f=files[b.
+const indexedFiles = allFiles.map((f, idx) => ({f, idx})).filter(item => {
+  if(!fq) return true;
+  const t = (item.f.title || '').toLocaleLowerCase('ar');
+  const o = (item.f.owner || '').toLocaleLowerCase('ar');
+  const d = (item.f.date || '').toLocaleLowerCase('ar');
+  return t.includes(fq) || o.includes(fq) || d.includes(fq);
+});
+
+if(allFiles.length === 0){
+$('fileArea').innerHTML = '<div class="empty-inner">لا توجد ملفات في هذا الفولدر بعد. اضغط «＋ إضافة ملف للقائمة» لإضافة أول ملف.</div>';
+return;
+}
+if(indexedFiles.length === 0){
+$('fileArea').innerHTML = '<div class="empty-inner">لا توجد ملفات مطابقة لنتيجة البحث.</div>';
+return;
+}
+
+$('fileArea').innerHTML = `<div class="files-list">` + indexedFiles.map(({f, idx}) => {
+const sizeMB = f.blob ? (f.blob.size / 1024 / 1024).toFixed(2) + ' MB' : '';
+const fType = detectFileType(f);
+return `<div class="file-row">
+  <div class="file-details">
+    <div class="file-main-title">
+      <span class="type-pill ${fType.cls}">${fType.label}</span>
+      <span>${esc(f.title)}</span>
+    </div>
+    <div class="file-badges">
+      <span class="file-badge">👤 <b>صاحب الملف:</b> ${esc(f.owner || 'غير محدد')}</span>
+      <span class="file-badge">📅 <b>تاريخ الحفظ:</b> ${esc(f.date || 'غير محدد')}</span>
+      ${sizeMB ? `<span class="file-badge">💾 ${sizeMB}</span>` : ''}
+    </div>
+  </div>
+  <div class="fileactions">
+    ${fType.canPreview ? `<button class="btn primary view-btn" data-idx="${idx}">معاينة</button>` : ''}
+    ${fType.canPreview ? `<button class="btn light print-btn" data-idx="${idx}">طباعة</button>` : ''}
+    <button class="btn light dl-btn" data-idx="${idx}">تنزيل</button>
+    <button class="btn gold edit-btn" data-idx="${idx}">تعديل</button>
+    <button class="btn danger del-btn" data-idx="${idx}">حذف</button>
+  </div>
+</div>`;
+}).join('') + `</div>`;
+
+document.querySelectorAll('.view-btn').forEach(btn => {
+btn.onclick = () => {const f = allFiles[btn.dataset.idx];if(f && f.blob) window.open(URL.createObjectURL(f.blob), '_blank');};
+});
+document.querySelectorAll('.print-btn').forEach(btn => {
+btn.onclick = () => {const f = allFiles[btn.dataset.idx];if(f && f.blob){const w = window.open(URL.createObjectURL(f.blob), '_blank');if(w) w.onload = () => w.print();}};
+});
+document.querySelectorAll('.dl-btn').forEach(btn => {
+btn.onclick = () => {
+  const f = allFiles[btn.dataset.idx];
+  if(f && f.blob){
+    const fType = detectFileType(f);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(f.blob);
+    a.download = (f.title || 'document') + fType.ext;
+    a.click();
+  }
+};
+});
+document.querySelectorAll('.edit-btn').forEach(btn => {
+btn.onclick = () => {
+  const idx = Number(btn.dataset.idx);
+  const f = allFiles[idx];
+  if(!f) return;
+  editFileIdx = idx;
+  $('fileModalTitle').textContent = 'تعديل بيانات الملف';
+  $('customFileTitle').value = f.title || '';
+  $('customFileOwner').value = f.owner || '';
+  $('customFileDate').value = f.date || '';
+  $('docInput').value = '';
+  $('docInputLabel').textContent = 'استبدال الملف المرفق (اختياري)';
+  $('fileEditHint').textContent = 'اترك اختيار الملف فارغاً للإبقاء على الملف الحالي وتعديل البيانات فقط.';
+  $('fileModal').classList.remove('hidden');
+  $('customFileTitle').focus();
+};
+});
+document.querySelectorAll('.del-btn').forEach(btn => {
+btn.onclick = async () => {
+const idx = Number(btn.dataset.idx);
+if(confirm('هل تريد حذف هذا الملف من القائمة؟')){
+allFiles.splice(idx, 1);x.files = allFiles;delete x.file;delete x.fileName;await put(x);renderFileList(x);await render();
+}
+};
+});
+}
+
+$('fileSearch').oninput = async () => {
+  const x = (await all()).find(v => v.id === activeId);
+  if(x) renderFileList(x);
+};
+
+$('docInput').onchange = () => {
+  const f = $('docInput').files[0];
+  if(f && !$('customFileTitle').value.trim()){
+    $('customFileTitle').value = f.name.replace(/\.[^/.]+$/, '');
+  }
+};
+
+$('openAddFileModalBtn').onclick = () => {
+editFileIdx = null;
+$('fileModalTitle').textContent = 'إضافة ملف إلى القائمة';
+$('customFileTitle').value = '';
+$('customFileOwner').value = '';
+$('customFileDate').value = new Date().toISOString().slice(0, 10);
+$('docInput').value = '';
+$('docInputLabel').textContent = '1. اختر الملف (PDF، صورة، Excel، PowerPoint، أو Word)';
+$('fileEditHint').textContent = 'أكمل البيانات أعلاه ثم اضغط «حفظ الملف» لإدراجه في قائمة الفولدر.';
+$('fileModal').classList.remove('hidden');
+};
+
+$('cancelFileModal').onclick = () => {$('fileModal').classList.add('hidden');};
+
+$('saveFileBtn').onclick = async () => {
+const title = $('customFileTitle').value.trim();
+const owner = $('customFileOwner').value.trim();
+const date = $('customFileDate').value;
+const f = $('docInput').files[0];
+
+if(editFileIdx === null && !f){alert('يرجى اختيار ملف أولاً (PDF أو صورة أو Excel أو PowerPoint)');return;}
+if(!title){alert('يرجى كتابة اسم الملف');return;}
+if(!owner){alert('يرجى كتابة اسم صاحب الملف');return;}
+if(!date){alert('يرجى تحديد تاريخ حفظ الملف');return;}
+if(f && f.size > 100 * 1024 * 1024){alert('حجم الملف أكبر من 100 ميغابايت');return;}
+
+const x = (await all()).find(v => v.id === activeId);
+if(x){
+const currentFiles = getFolderFiles(x);
+if(editFileIdx !== null){
+  const existing = currentFiles[editFileIdx];
+  existing.title = title;
+  existing.owner = owner;
+  existing.date = date;
+  if(f){ existing.blob = f; existing.origName = f.name; }
+} else {
+  currentFiles.push({id:crypto.randomUUID(),title,owner,date,blob:f,origName:f.name});
+}
+x.files = currentFiles;delete x.file;delete x.fileName;
+await put(x);$('fileModal').classList.add('hidden');renderFileList(x);await render();
+}
+};
+
+$('exportExcelBtn').onclick = async () => {
+  const list = await all();
+  if(list.length === 0){ alert('لا توجد مجلدات لتصديرها.'); return; }
+  let csv = '\uFEFFرقم المجلد,اسم المنظمة / المجلد,تاريخ إنشاء المجلد,عدد الملفات المرفقة,تفاصيل الملفات (الاسم - صاحب الملف - تاريخ الحفظ)\n';
+  for(const x of list){
+    const files = getFolderFiles(x);
+    const details = files.map(f => `[${f.title} - ${f.owner} - ${f.date}]`).join(' | ') || 'لا توجد ملفات';
+    const row = [
+      `"${String(x.folderNo).padStart(4,'0')}"`,
+      `"${(x.name||'').replace(/"/g,'""')}"`,
+      `"${formatCreatedAt(x.createdAt)}"`,
+      files.length,
+      `"${details.replace(/"/g,'""')}"`
+    ];
+    csv += row.join(',') + '\n';
+  }
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  downloadBlob(blob, 'كشف_نشاطات_المنظمات_' + new Date().toISOString().slice(0,10) + '.csv');
+};
+
+$('printReportBtn').onclick = async () => {
+  const list = await all();
+  if(list.length === 0){ alert('لا توجد مجلدات لطباعة التقرير.'); return; }
+  const totalFiles = list.reduce((s, x) => s + getFolderFiles(x).length, 0);
+  const today = new Intl.DateTimeFormat('ar-IQ', {year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+
+  const rowsHtml = list.map(x => {
+    const files = getFolderFiles(x);
+    const filesSummary = files.length > 0
+      ? files.map(f => `• <b>${esc(f.title)}</b> (${esc(f.owner)} - ${esc(f.date)})`).join('<br>')
+      : '<span style="color:#777">لا توجد ملفات</span>';
+    return `<tr>
+      <td style="text-align:center;font-weight:bold">${String(x.folderNo).padStart(4,'0')}</td>
+      <td style="font-weight:bold">${esc(x.name)}</td>
+      <td style="text-align:center">${files.length}</td>
+      <td style="font-size:12px;line-height:1.6">${filesSummary}</td>
+    </tr>`;
+  }).join('');
+
+  const printWin = window.open('', '_blank');
+  printWin.document.write(`<!DOCTYPE html>
+  <html lang="ar" dir="rtl">
+  <head>
+  <meta charset="UTF-8">
+  <title>كشف نشاطات المنظمات</title>
+  <style>
+    @page { size: A4; margin: 15mm; }
+    body { font-family: Tahoma, Arial, sans-serif; color: #111; direction: rtl; }
+    .rep-header { text-align: center; border-bottom: 3px double #0c3b5e; padding-bottom: 12px; margin-bottom: 18px; }
+    .rep-header h2 { margin: 0 0 6px; color: #0c3b5e; font-size: 22px; }
+    .rep-meta { display: flex; justify-content: space-between; font-size: 13px; color: #444; margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+    th, td { border: 1px solid #888; padding: 8px 10px; vertical-align: top; }
+    th { background: #0c3b5e; color: #fff; text-align: center; }
+    tr:nth-child(even) { background: #f4f8fb; }
+  </style>
+  </head>
+  <body>
+    <div class="rep-header">
+      <h2>كشف إحصائي بنشاطات المنظمات والملفات المؤرشفة</h2>
+      <div class="rep-meta">
+        <span>إجمالي المنظمات: <b>${list.length}</b></span>
+        <span>إجمالي الوثائق: <b>${totalFiles}</b></span>
+        <span>تاريخ التقرير: <b>${today}</b></span>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:75px">رقم المجلد</th>
+          <th style="width:200px">اسم المنظمة / المجلد</th>
+          <th style="width:75px">عدد الملفات</th>
+          <th>قائمة الملفات (الاسم / صاحب الملف / تاريخ الحفظ)</th>
+        </tr>
+      </thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>
+    <script>window.onload = () => { window.print(); };<\/script>
+  </body>
+  </html>`);
+  printWin.document.close();
+};
+
+function showModal(rename=false){
+renameMode=rename;
+$('modalTitle').textContent=rename?'تعديل بيانات المجلد':'إنشاء مجلد جديد';
+$('folderName').value='';$('folderColor').value='#f59e0b';$('folderImage').value='';
+$('imageHint').textContent='اترك الصورة فارغة لتظهر أيقونة الفولدر المتحركة.';
+if(rename){
+all().then(list=>{
+const x=list.find(v=>v.id===activeId);
+if(x){$('folderName').value=x.name;$('folderColor').value=x.color||'#f59e0b';$('imageHint').textContent=x.image?'توجد صورة حالية؛ اختيار صورة جديدة سيستبدلها.':'لا توجد صورة حالية.';}
+});
+}
+$('modal').classList.remove('hidden');$('folderName').focus();
+}
+
+$('addBtn').onclick=()=>showModal(false);
+$('cancelModal').onclick=()=>{$('modal').classList.add('hidden');};
+
+$('saveFolder').onclick=async()=>{
+const name=$('folderName').value.trim();
+if(!name){alert('اكتب اسم المجلد أولاً');return;}
+const chosen=$('folderImage').files[0];
+if(chosen&&!chosen.type.startsWith('image/')){alert('يرجى اختيار ملف صورة');return;}
+
+if(renameMode){
+const x=(await all()).find(v=>v.id===activeId);
+if(x){
+x.name=name;x.color=$('folderColor').value;
+if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}x.image=chosen;}
+await put(x);
+$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
+}
+}else{
+const existing=await all();
+const folderNo=existing.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0)+1;
+const record={id:crypto.randomUUID(),name,folderNo,createdAt:Date.now(),color:$('folderColor').value,files:[]};
+if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}record.image=chosen;}
+await put(record);
+}
+$('modal').classList.add('hidden');await render();
+};
+
+$('folderName').onkeydown=e=>{if(e.key==='Enter')$('saveFolder').click();};
+$('search').oninput=render;
+
+$('backBtn').onclick=()=>{
+$('detail').classList.add('hidden');$('home').classList.remove('hidden');$('workspaceBox').classList.remove('hidden');render();
+};
+
+$('renameBtn').onclick=()=>showModal(true);
+
+$('deleteBtn').onclick=async()=>{
+if(confirm('حذف المجلد وجميع الملفات الموجودة بداخله نهائياً؟')){
+await del(activeId);activeId=null;$('detail').classList.add('hidden');$('home').classList.remove('hidden');$('workspaceBox').classList.remove('hidden');await render();
+}
+};
+
+function blobToBase64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=()=>rej(r.error);r.readAsDataURL(blob);});}
+function downloadBlob(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),3000);}
+
+$('backupBtn').onclick=async()=>{
+try{
+const list=await all();const data=[];
+for(const x of list){
+let image=null;
+if(x.image) image={type:x.image.type||'image/jpeg',data:await blobToBase64(x.image)};
+const rawFiles = getFolderFiles(x);
+const serializedFiles = [];
+for(const f of rawFiles){
+if(f.blob) serializedFiles.push({id:f.id,title:f.title,owner:f.owner,date:f.date,origName:f.origName,type:f.blob.type||'application/octet-stream',data:await blobToBase64(f.blob)});
+}
+data.push({id:x.id,name:x.name,folderNo:x.folderNo,createdAt:x.createdAt,color:x.color||'#f59e0b',image,files:serializedFiles});
+}
+const blob=new Blob([JSON.stringify({format:'org-activities-backup-v2',folders:data})],{type:'application/json'});
+downloadBlob(blob,'org-activities-backup-'+new Date().toISOString().slice(0,10)+'.json');
+}catch(e){alert('تعذر إنشاء النسخة الاحتياطية: '+e.message);}
+};
+
+$('restoreBtn').onclick=()=>$('restoreFile').click();
+
+$('restoreFile').onchange=async e=>{
+const f=e.target.files[0];if(!f)return;
+try{
+const data=JSON.parse(await f.text());
+if((data.format!=='org-activities-backup-v1' && data.format!=='org-activities-backup-v2') || !Array.isArray(data.folders)) throw Error('صيغة النسخة غير صحيحة');
+if(!confirm('ستتم إضافة المجلدات من النسخة الاحتياطية. متابعة؟'))return;
+for(const v of data.folders){
+let image;
+if(v.image){const raw=atob(v.image.data);const arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);image=new Blob([arr],{type:v.image.type||'image/jpeg'});}
+const restoredFiles = [];
+if(Array.isArray(v.files)){
+for(const sf of v.files){
+const raw=atob(sf.data);const arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
+restoredFiles.push({id:sf.id||crypto.randomUUID(),title:sf.title||'ملف مرفق',owner:sf.owner||'غير محدد',date:sf.date||'',origName:sf.origName||'document.pdf',blob:new Blob([arr],{type:sf.type||'application/octet-stream'})});
+}
+}
+await put({id:v.id||crypto.randomUUID(),name:v.name,...(Number.isInteger(v.folderNo)?{folderNo:v.folderNo}:{}),createdAt:v.createdAt||Date.now(),color:v.color||'#f59e0b',...(image?{image}:{}),files:restoredFiles});
+}
+await render();alert('تمت استعا
