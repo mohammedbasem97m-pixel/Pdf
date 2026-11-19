@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b46"><title>أرشيف حفظ الملفات</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#102b46;--blue:#1c5278;--gold:#d8ad58;--paper:#f6f3ec;--ink:#203448;--muted:#718092}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Tahoma,Arial,sans-serif}
+header{background:linear-gradient(120deg,#0c2036,#1c5278);color:white;padding:22px 5vw 30px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:clamp(22px,4vw,34px);font-weight:800}.sub{color:#d7e3ec;margin-top:8px}
+.auth{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.auth input{width:190px;max-width:42vw}
+input,button{font:inherit;border-radius:10px;padding:11px 13px;border:1px solid #d6dee5}input{background:white;color:#1c2d3d}
+button{cursor:pointer;background:var(--gold);border:0;color:#172c40;font-weight:700}button.secondary{background:#e8edf2;color:#203448}button.danger{background:#f5dddd;color:#8a2929}
+.hero{display:flex;align-items:center;justify-content:center;gap:35px;padding:20px 0 0;min-height:170px}.heroText{max-width:480px}.heroText h1{font-size:clamp(25px,5vw,42px);margin:0 0 10px}.heroText p{line-height:1.9;color:#d8e4ed;margin:0}
+.book{width:150px;height:115px;position:relative;perspective:600px;filter:drop-shadow(0 12px 12px #06152288);animation:float 3s ease-in-out infinite}
+.book .cover{position:absolute;inset:10px 5px 8px 50%;background:linear-gradient(135deg,#e6c77d,#a87930);border-radius:5px 12px 12px 4px;transform-origin:left;animation:openbook 3.8s ease-in-out infinite;z-index:3;border:3px solid #f2d99b}
+.book .pages{position:absolute;inset:15px 8px 10px 50%;background:#fff8e8;border-radius:2px 9px 9px 2px;box-shadow:inset 5px 0 #d7c8a8}
+.book:before{content:"";position:absolute;left:5px;right:50%;top:15px;bottom:10px;background:#f8edcf;border-radius:9px 2px 2px 9px;box-shadow:inset -5px 0 #d7c8a8}
+.book:after{content:"";position:absolute;left:48%;top:14px;bottom:10px;width:5px;background:#79542a;border-radius:5px}
+@keyframes openbook{0%,15%,100%{transform:rotateY(-5deg)}45%,75%{transform:rotateY(-125deg)}}@keyframes float{50%{translate:0 -8px}}
+main{max-width:1200px;margin:25px auto;padding:0 16px}.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}.toolbar input{flex:1;min-width:190px}.stats{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:13px}
+.folder{border:1px solid #e0d8c8;background:white;border-radius:15px;padding:16px 10px;text-align:center;transition:.22s;box-shadow:0 4px 13px #24384a0b;min-width:0}
+.folder:hover{transform:translateY(-4px);box-shadow:0 10px 22px #24384a18;border-color:#d5b56e}
+.folder .ico{font-size:40px;display:block;margin-bottom:7px}.folder strong{display:block;overflow-wrap:anywhere}.folder small{color:var(--muted)}
+.folderActions{display:flex;gap:5px;justify-content:center;margin-top:9px}.folderActions button{font-size:12px;padding:6px 8px}
+.overlay{position:fixed;inset:0;background:#07192bd9;display:none;align-items:center;justify-content:center;padding:14px;z-index:10}.overlay.show{display:flex}
+.modal{background:white;border-radius:18px;width:min(780px,100%);max-height:92vh;overflow:auto;padding:20px;box-shadow:0 20px 60px #0005}
+.modalHead{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #e8edf1;padding-bottom:12px}.modalHead h2{margin:0}
+.slots{display:grid;gap:12px;margin-top:16px}.slot{border:1px solid #e1e7eb;border-radius:13px;padding:13px;display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}.slotName{font-weight:700}.slotInfo{font-size:13px;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.actions button{padding:8px 10px;font-size:13px}
+.hint{background:#f3f6f8;border-radius:10px;padding:12px;line-height:1.8;color:#526476;font-size:13px;margin-top:15px}
+.hidden{display:none!important}.status{font-size:13px;color:#dce8ef;margin-top:8px}.empty{color:var(--muted);font-size:14px}
+@media(max-width:600px){.hero{gap:12px}.book{transform:scale(.82)}.slot{grid-template-columns:1fr}.actions{justify-content:flex-start}.auth input{width:145px}}
+</style></head>
+<body>
+<header>
+<div class="top">
+ <div><div class="brand">📚 أرشيف حفظ الملفات</div><div class="sub">مكتبتك الرقمية المنظمة — ملفاتك معك أينما كنت</div></div>
+ <div class="auth" id="authBox"><input id="email" type="email" placeholder="البريد الإلكتروني"><input id="password" type="password" placeholder="كلمة المرور"><button id="loginBtn">دخول</button><button class="secondary" id="signupBtn">إنشاء حساب</button></div>
+ <div class="auth hidden" id="userBox"><span id="userEmail"></span><button class="secondary" id="logoutBtn">تسجيل خروج</button></div>
+</div>
+<div class="hero"><div class="book" aria-label="كتاب متحرك"><div class="pages"></div><div class="cover"></div></div><div class="heroText"><h1>كل ملفاتك في مكان واحد</h1><p>أنشئ المجلدات التي تحتاجها وسمِّ كل مجلد بنفسك. داخل كل مجلد خمس خانات للملفات.</p></div></div>
+<div class="status" id="status">سجّل الدخول لحفظ مجلداتك وملفاتك سحابياً.</div>
+</header>
+<main><div class="toolbar"><input id="search" placeholder="ابحث باسم المجلد أو رقمه..."><button id="createFolderBtn">＋ إنشاء مجلد</button><div class="stats" id="stats">لا توجد مجلدات بعد</div></div><div class="grid" id="folders"></div></main>
+<div class="overlay" id="overlay"><section class="modal">
+<div class="modalHead"><h2 id="folderTitle">مجلد</h2><button class="secondary" id="closeModal">إغلاق ✕</button></div>
+<p class="empty">هذا المجلد يحتوي على خمس خانات فارغة. عند رفع كل ملف، أدخل اسم صاحبه.</p>
+<div class="slots" id="slots"></div>
+<div class="hint">ملفات PDF تفتح منفصلة للطباعة من صفحاتها الأصلية. ملفات Word وExcel نزّلها وافتحها في Office أو Google Docs/Sheets للطباعة. لا يضيف الموقع أي كتابة أو شعار إلى أوراق المستند.</div>
+</section></div>
+<script>
+
+/* إعدادات مشروع Supabase */
+const SUPABASE_URL="https://bwhaumxpymiavwllwwwn.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_r27fZQzBMdp7WVtUiTu8Mg_Dav01MfB";
+const BUCKET="archive-files";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let currentUser=null,activeFolder=null,records=[],folderNames={},folderNumbers=[];
+const $=id=>document.getElementById(id);
+function status(s){$("status").textContent=s}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addBtn(parent,label,fn,cls=""){const b=document.createElement("button");b.textContent=label;if(cls)b.className=cls;b.onclick=fn;parent.appendChild(b)}
+function folderName(id){return folderNames[id]||"مجلد"}
+function renderFolders(){
+ const q=$("search").value.trim().toLowerCase();$("folders").innerHTML="";
+ $("stats").textContent=`${folderNumbers.length} مجلداً · ${folderNumbers.length*5} خانة للملفات`;
+ folderNumbers.forEach((id,index)=>{
+  const name=folderName(id);if(q&&!name.toLowerCase().includes(q)&&!String(index+1).includes(q))return;
+  const card=document.createElement("div");card.className="folder";
+  const title=document.createElement("strong");title.textContent=name;
+  const icon=document.createElement("span");icon.className="ico";icon.textContent="📁";
+  const small=document.createElement("small");small.textContent=`رقم ${index+1} · 5 خانات`;
+  const actions=document.createElement("div");actions.className="folderActions";
+  addBtn(actions,"فتح",()=>openFolder(id));addBtn(actions,"تسمية",()=>renameFolder(id),"secondary");
+  card.append(icon,title,small,actions);$("folders").appendChild(card);
+ });
+}
+async function loadFolderNames(){
+ folderNames={};folderNumbers=[];
+ const {data,error}=await db.from("archive_folders").select("id,name,created_at").eq("user_id",currentUser.id).order("created_at");
+ if(error){status("تعذر تحميل المجلدات: "+error.message);renderFolders();return}
+ (data||[]).forEach(x=>{folderNumbers.push(x.id);folderNames[x.id]=x.name});renderFolders();
+}
+async function createFolder(){
+ if(!currentUser){alert("سجّل الدخول أولاً حتى تُحفظ مجلداتك.");return}
+ const next=folderNumbers.length+1;
+ const entered=prompt("اكتب اسم المجلد الجديد:",`مجلد ${next}`);if(entered===null)return;
+ const name=entered.trim();if(!name){alert("اكتب اسماً للمجلد.");return}
+ const {data,error}=await db.from("archive_folders").insert({user_id:currentUser.id,name}).select("id,name").single();
+ if(error){alert("تعذر إنشاء المجلد: "+error.message);return}
+ folderNumbers.push(data.id);folderNames[data.id]=data.name;renderFolders();status("تم إنشاء المجلد وحفظه سحابياً.");
+}
+async function renameFolder(id){
+ if(!currentUser){alert("سجّل الدخول أولاً.");return}
+ const next=prompt("اكتب الاسم الذي تريده لهذا المجلد:",folderName(id));if(next===null)return;
+ const name=next.trim();if(!name){alert("اكتب اسماً للمجلد.");return}
+ const {error}=await db.from("archive_folders").update({name}).eq("id",id).eq("user_id",currentUser.id);
+ if(error){alert("تعذر حفظ الاسم: "+error.message);return}
+ folderNames[id]=name;renderFolders();if(activeFolder===id)$("folderTitle").textContent="📁 "+name;status("تم تحديث اسم المجلد.");
+}
+async function openFolder(id){activeFolder=id;$("folderTitle").textContent="📁 "+folderName(id);$("overlay").classList.add("show");await refreshFolder()}
+$("closeModal").onclick=()=>$("overlay").classList.remove("show");
+$("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))$("overlay").classList.remove("show")});
+async function refreshFolder(){
+ if(!currentUser||!activeFolder){records=[];drawSlots();return}
+ const {data,error}=await db.from("archive_files").select("*").eq("user_id",currentUser.id).eq("folder_id",activeFolder).order("slot");
+ if(error){status("تعذر تحميل الملفات: "+error.message);records=[]}else records=data||[];drawSlots();
+}
+function formatDate(value){const d=new Date(value);if(Number.isNaN(d.getTime()))return "غير متوفر";return new Intl.DateTimeFormat("ar-IQ",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).format(d)}
+function extension(name){return String(name||"").split(".").pop().toLowerCase()}
+function drawSlots(){
+ $("slots").innerHTML="";
+ for(let slot=1;slot<=5;slot++){
+  const r=records.find(x=>Number(x.slot)===slot),row=document.createElement("div");row.className="slot";
+  const left=document.createElement("div"),title=document.createElement("div");title.className="slotName";title.textContent=r?`الملف ${slot}: ${r.file_name}`:`الملف ${slot} — فارغ`;
+  const info=document.createElement("div");info.className="slotInfo";info.textContent=r?`صاحب الملف: ${r.owner_name} · تاريخ الإضافة: ${formatDate(r.created_at)}`:"يمكنك إضافة PDF أو Word أو Excel هنا";
+  left.append(title,info);const actions=document.createElement("div");actions.className="actions";
+  if(r){addBtn(actions,"تنزيل",()=>downloadFile(r));if(extension(r.file_name)==="pdf")addBtn(actions,"طباعة",()=>printPdf(r));addBtn(actions,"تعديل البيانات",()=>editOwner(r));addBtn(actions,"استبدال",()=>chooseFile(slot));addBtn(actions,"حذف",()=>deleteFile(r),"danger")}
+  else addBtn(actions,"رفع ملف",()=>chooseFile(slot));
+  row.append(left,actions);$("slots").appendChild(row);
+ }
+}
+function chooseFile(slot){
+ if(!currentUser){alert("سجّل الدخول أولاً.");return}
+ const inp=document.createElement("input");inp.type="file";inp.accept=".pdf,.doc,.docx,.xls,.xlsx";
+ inp.onchange=async()=>{if(!inp.files[0])return;const owner=prompt("اكتب اسم صاحب الملف:");if(owner===null)return;if(!owner.trim()){alert("اسم صاحب الملف مطلوب.");return}await uploadFile(slot,inp.files[0],owner.trim())};inp.click();
+}
+async function uploadFile(slot,file,owner){
+ const ext=extension(file.name);if(!["pdf","doc","docx","xls","xlsx"].includes(ext)){alert("نوع الملف غير مدعوم.");return}
+ if(file.size>50*1024*1024){alert("الحد الأقصى للملف 50 ميغابايت.");return}
+ if(!currentUser||!activeFolder)return;
+ status("جارٍ رفع الملف...");
+ const safe=file.name.replace(/[^\w.\-\u0600-\u06FF]/g,"_");
+ const path=`${currentUser.id}/${activeFolder}/${slot}/${Date.now()}_${safe}`;
+ const up=await db.storage.from(BUCKET).upload(path,file,{contentType:file.type||mimeFor(ext),upsert:false});
+ if(up.error){status("فشل الرفع: "+up.error.message);return}
+ const old=records.find(x=>Number(x.slot)===slot);
+ if(old){
+  const delRow=await db.from("archive_files").delete().eq("id",old.id).eq("user_id",currentUser.id);
+  if(delRow.error){await db.storage.from(BUCKET).remove([path]);status("تعذر استبدال بيانات الملف: "+delRow.error.message);return}
+  const delObj=await db.storage.from(BUCKET).remove([old.storage_path]);
+  if(delObj.error){status("تم تحديث السجل لكن تعذر حذف النسخة القديمة: "+delObj.error.message)}
+ }
+ const ins=await db.from("archive_files").insert({user_id:currentUser.id,folder_id:activeFolder,slot,file_name:file.name,owner_name:owner,storage_path:path});
+ if(ins.error){await db.storage.from(BUCKET).remove([path]);status("تعذر حفظ بيانات الملف: "+ins.error.message);await refreshFolder();return}
+ status("تم حفظ الملف واسم صاحبه وتاريخ الإضافة سحابياً.");await refreshFolder();
+}
+function mimeFor(e){return({pdf:"application/pdf",doc:"application/msword",docx:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",xls:"application/vnd.ms-excel",xlsx:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"})[e]||"application/octet-stream"}
+async function signed(r){const {data,error}=await db.storage.from(BUCKET).createSignedUrl(r.storage_path,120);if(error)throw error;return data.signedUrl}
+async function downloadFile(r){try{const url=await signed(r),a=document.createElement("a");a.href=url;a.download=r.file_name;a.target="_blank";document.body.appendChild(a);a.click();a.remove()}catch(e){alert("تعذر التنزيل: "+e.message)}}
+async function printPdf(r){try{const url=await signed(r);const w=window.open(url,"_blank");if(!w)alert("اسمح بالنوافذ المنبثقة لفتح PDF.");}catch(e){alert(e.message)}}
+async function editOwner(r){const name=prompt("عدّل اسم صاحب الملف:",r.owner_name);if(name===null||!name.trim())return;const {error}=await db.from("archive_files").update({owner_name:name.trim()}).eq("id",r.id).eq("user_id",currentUser.id);if(error){alert(error.message);return}await refreshFolder()}
+async function deleteFile(r){if(!confirm("هل تريد حذف هذا الملف نهائياً؟"))return;const a=await db.storage.from(BUCKET).remove([r.storage_path]);if(a.error){alert(a.error.message);return}const b=await db.from("archive_files").delete().eq("id",r.id).eq("user_id",currentUser.id);if(b.error){alert(b.error.message);return}await refreshFolder();status("تم حذف الملف.")}
+async function authAction(kind){
+ const email=$("email").value.trim(),password=$("password").value;if(!email||!password){alert("أدخل البريد وكلمة المرور.");return}
+ const res=kind==="signup"?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});
+ if(res.error){status(res.error.message);return}status(kind==="signup"?"تم إنشاء الحساب. قد تحتاج إلى تأكيد البريد.":"تم تسجيل الدخول.");await getSession()
+}
+$("createFolderBtn").onclick=createFolder;
+$("loginBtn").onclick=()=>authAction("login");$("signupBtn").onclick=()=>authAction("signup");
+$("logoutBtn").onclick=async()=>{await db.auth.signOut();await getSession()};
+async function getSession(){const {data,error}=await db.auth.getSession();if(error){status(error.message);return}currentUser=data.session?.user||null;$("authBox").classList.toggle("hidden",!!currentUser);$("userBox").classList.toggle("hidden",!currentUser);$("userEmail").textContent=currentUser?.email||"";if(currentUser){status("تم تسجيل الدخول — مجلداتك وملفاتك محفوظة سحابياً.");await loadFolderNames();if(activeFolder&&!folderNumbers.includes(activeFolder))activeFolder=null;if(activeFolder)await refreshFolder()}else{activeFolder=null;folderNames={};folderNumbers=[];records=[];renderFolders();drawSlots();status("سجّل الدخول لعرض مجلداتك وملفاتك المحفوظة.")}}
+$("search").addEventListener("input",renderFolders);renderFolders();
+getSession();
+db.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;setTimeout(()=>getSession(),0)});
+
+</script></body></html>
