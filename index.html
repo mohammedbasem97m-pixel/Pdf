@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+6<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -54,7 +54,6 @@
       flex-direction: column;
     }
 
-    /* علم العراق */
     .iraq-flag {
       position: fixed;
       top: 14px;
@@ -500,7 +499,7 @@
     <div class="flag-black"></div>
   </div>
 
-  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 الوضع الليلي</button>
+  <button type="button" class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 الوضع الليلي</button>
 
   <header>
     <h1>نشاطات المنظمات</h1>
@@ -511,12 +510,12 @@
     <section class="toolbar-card">
       <div class="actions-row">
         <div class="btn-group">
-          <button class="btn btn-primary" onclick="openFolderModal()">📁 + مجلد جديد</button>
-          <button class="btn btn-success" onclick="openFileModal()">📄 + إضافة ملف</button>
-          <button class="btn btn-outline" onclick="exportExcel()">📊 تصدير Excel</button>
-          <button class="btn btn-outline" onclick="window.print()">🖨️ طباعة A4</button>
-          <button class="btn btn-outline" onclick="exportBackup()">💾 نسخة احتياطية</button>
-          <button class="btn btn-outline" onclick="document.getElementById('importInput').click()">📂 استعادة نسخة</button>
+          <button type="button" class="btn btn-primary" onclick="openFolderModal()">📁 + مجلد جديد</button>
+          <button type="button" class="btn btn-success" onclick="openFileModal()">📄 + إضافة ملف</button>
+          <button type="button" class="btn btn-outline" onclick="exportExcel()">📊 تصدير Excel</button>
+          <button type="button" class="btn btn-outline" onclick="window.print()">🖨️ طباعة A4</button>
+          <button type="button" class="btn btn-outline" onclick="exportBackup()">💾 نسخة احتياطية</button>
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('importInput').click()">📂 استعادة نسخة</button>
           <input type="file" id="importInput" accept=".json" style="display:none" onchange="importBackup(event)">
         </div>
 
@@ -530,7 +529,7 @@
           <span class="badge-stat" id="folderCountStat">0 مجلد</span>
           <span class="badge-stat" id="fileCountStat">0 ملف مرفق</span>
         </div>
-        <div>PDF • صور • Excel • PowerPoint • Word (تخزين عالي السعة)</div>
+        <div>PDF • صور • Excel • PowerPoint • Word</div>
       </div>
     </section>
 
@@ -542,14 +541,14 @@
           <h2 id="currentFolderTitle">جميع الملفات المؤرشفة</h2>
           <p id="currentFolderDesc" style="font-size:0.88rem; color:var(--text-muted);">اختر مجلداً من الأعلى أو استعرض كافة الوثائق</p>
         </div>
-        <button class="btn btn-outline btn-sm no-print" id="showAllBtn" onclick="selectFolder(null)" style="display:none;">عرض الكل</button>
+        <button type="button" class="btn btn-outline btn-sm no-print" id="showAllBtn" onclick="selectFolder(null)" style="display:none;">عرض الكل</button>
       </div>
 
       <div class="table-responsive" id="filesTableContainer"></div>
     </section>
 
     <p class="storage-notice">
-      تنبيه: الحفظ محلي عالي السعة داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
+      تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
     </p>
   </main>
 
@@ -560,12 +559,12 @@
     <div class="modal-box">
       <div class="modal-header">
         <h3>إنشاء مجلد جديد</h3>
-        <button class="icon-btn" onclick="closeModal('folderModal')">✕</button>
+        <button type="button" class="icon-btn" onclick="closeModal('folderModal')">✕</button>
       </div>
-      <form onsubmit="saveFolder(event)">
+      <div>
         <div class="form-group">
           <label>اسم المجلد / التصنيف *</label>
-          <input type="text" id="folderNameInput" required placeholder="مثال: كتب رسمية 2026">
+          <input type="text" id="folderNameInput" placeholder="مثال: كتب رسمية 2026">
         </div>
         <div class="form-group">
           <label>وصف مختصر (اختياري)</label>
@@ -578,9 +577,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" onclick="closeModal('folderModal')">إلغاء</button>
-          <button type="submit" class="btn btn-primary">حفظ المجلد</button>
+          <button type="button" class="btn btn-primary" id="saveFolderBtn" onclick="handleSaveFolder()">حفظ المجلد</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -589,35 +588,35 @@
     <div class="modal-box">
       <div class="modal-header">
         <h3>إضافة ملف إلى القائمة</h3>
-        <button class="icon-btn" onclick="closeModal('fileModal')">✕</button>
+        <button type="button" class="icon-btn" onclick="closeModal('fileModal')">✕</button>
       </div>
-      <form onsubmit="saveFile(event)">
+      <div>
         <div class="form-group">
           <label>اختر المجلد *</label>
-          <select id="fileFolderSelect" required></select>
+          <select id="fileFolderSelect"></select>
         </div>
         <div class="form-group">
           <label>عنوان الوثيقة / الملف *</label>
-          <input type="text" id="fileTitleInput" required placeholder="مثال: تقرير نشاط منظمة الأمل">
+          <input type="text" id="fileTitleInput" placeholder="مثال: تقرير نشاط منظمة الأمل">
         </div>
         <div class="form-group">
           <label>اسم المنظمة / الجهة المعنية *</label>
-          <input type="text" id="fileOwnerInput" required placeholder="مثال: منظمة الإغاثة الإنسانية">
+          <input type="text" id="fileOwnerInput" placeholder="مثال: منظمة الإغاثة الإنسانية">
         </div>
         <div class="form-group">
           <label>تاريخ الوثيقة *</label>
-          <input type="date" id="fileDateInput" required>
+          <input type="date" id="fileDateInput">
         </div>
         <div class="form-group">
           <label>اختر الملف من جهازك (PDF, Word, Excel, صورة) *</label>
-          <input type="file" id="fileAttachmentInput" required accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*">
+          <input type="file" id="fileAttachmentInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*">
           <div class="form-hint">أكمل البيانات أعلاه ثم اضغط «حفظ الملف» لإدراجه في قائمة الفولدر.</div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" onclick="closeModal('fileModal')">إلغاء</button>
-          <button type="submit" class="btn btn-success" id="saveFileBtn">حفظ الملف</button>
+          <button type="button" class="btn btn-success" id="saveFileBtn" onclick="handleSaveFile()">حفظ الملف</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -626,67 +625,63 @@
     <div class="modal-box modal-lg">
       <div class="modal-header">
         <h3 id="previewTitle">معاينة الوثيقة</h3>
-        <button class="icon-btn" onclick="closeModal('previewModal')">✕</button>
+        <button type="button" class="icon-btn" onclick="closeModal('previewModal')">✕</button>
       </div>
       <div id="previewContent"></div>
     </div>
   </div>
 
   <script>
-    const DB_NAME = 'OrgArchiveDB';
+    const DB_NAME = 'OrgArchiveDB_V2';
     const DB_VERSION = 1;
-    let db;
+    let db = null;
     let foldersCache = [];
     let filesCache = [];
     let selectedFolderId = null;
 
-    // فتح قاعدة البيانات IndexedDB
+    // تهيئة قاعدة البيانات مع حماية ضد الحظر في المتصفحات المقيدة
     function openDB() {
-      return new Promise((resolve, reject) => {
-        const req = indexedDB.open(DB_NAME, DB_VERSION);
-        req.onupgradeneeded = (e) => {
-          const d = e.target.result;
-          if (!d.objectStoreNames.contains('folders')) {
-            d.createObjectStore('folders', { keyPath: 'id' });
-          }
-          if (!d.objectStoreNames.contains('files')) {
-            d.createObjectStore('files', { keyPath: 'id' });
-          }
-        };
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
+      return new Promise((resolve) => {
+        if (!window.indexedDB) return resolve(null);
+        try {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = (e) => {
+            const d = e.target.result;
+            if (!d.objectStoreNames.contains('folders')) d.createObjectStore('folders', { keyPath: 'id' });
+            if (!d.objectStoreNames.contains('files')) d.createObjectStore('files', { keyPath: 'id' });
+          };
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => resolve(null);
+        } catch (e) {
+          resolve(null);
+        }
       });
     }
 
+    function saveFallbackLocal() {
+      try {
+        localStorage.setItem('org_folders_fallback', JSON.stringify(foldersCache));
+      } catch (e) {}
+    }
+
     function dbGetAll(storeName) {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(storeName, 'readonly');
-        const req = tx.objectStore(storeName).getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
+      return new Promise((resolve) => {
+        if (!db) return resolve(null);
+        try {
+          const tx = db.transaction(storeName, 'readonly');
+          const req = tx.objectStore(storeName).getAll();
+          req.onsuccess = () => resolve(req.result || []);
+          req.onerror = () => resolve(null);
+        } catch (e) {
+          resolve(null);
+        }
       });
     }
 
     function dbPut(storeName, item) {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(storeName, 'readwrite');
-        const req = tx.objectStore(storeName).put(item);
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    }
-
-    function dbDelete(storeName, id) {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(storeName, 'readwrite');
-        const req = tx.objectStore(storeName).delete(id);
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    }
-
-    async function init() {
-      try {
-        db = await openDB();
-        await refreshData();
-    
+      return new Promise((resolve) => {
+        if (!db) return resolve(false);
+        try {
+          const tx = db.transaction(storeName, 'readwrite');
+          const req = tx.objectStore(storeName).put(item);
+          req.onsucc
