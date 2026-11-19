@@ -1,848 +1,711 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>نشاطات المنظمات - الأرشيف الإلكتروني</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نشاطات المنظمات - الأرشيف الإلكتروني الشامل للمجلدات والوثائق</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f6fc;
+      --surface: #ffffff;
+      --surface-alt: #f8fbff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-light: #e0f2fe;
+      --border: #cbd5e1;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --warning: #d97706;
+      --shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
+      --radius: 14px;
+    }
 
-<style>
-:root{
---navy:#0c3b5e;
---blue:#1b6ca8;
---gold:#d6ad55;
---bg:#eef5fb;
---card:#ffffff;
---subcard:#f6fafe;
---ink:#162b3d;
---muted:#5a7085;
---line:#cfe0ee;
---badge-bg:#e1eef8;
---badge-ink:#1b4f78;
---shadow:0 8px 24px rgba(12,59,94,0.08);
-}
-[data-theme="dark"]{
---navy:#091e32;
---blue:#13436b;
---gold:#e2b857;
---bg:#0b1724;
---card:#122336;
---subcard:#182e46;
---ink:#e6f0fa;
---muted:#94aec7;
---line:#243f5c;
---badge-bg:#1c3854;
---badge-ink:#9fd0f7;
---shadow:0 8px 24px rgba(0,0,0,0.35);
-}
-*{box-sizing:border-box}
-body{
-margin:0;
-background:var(--bg);
-font-family:'Cairo',Tahoma,Arial,sans-serif;
-color:var(--ink);
-text-align:center;
-transition:background .25s,color .25s
-}
-header{
-background:linear-gradient(125deg,var(--navy),var(--blue));
-color:white;
-padding:38px 18px 40px;
-border-bottom:5px solid var(--gold);
-position:relative
-}
-header h1{margin:0;font-size:clamp(24px,5vw,35px);font-weight:800}
-header p{margin:6px 0 0;color:#dce8f1;font-size:15px}
-.wrap{max-width:1120px;margin:auto;padding:0 16px}
-.hero{
-margin-top:-20px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:16px;
-padding:18px;
-box-shadow:var(--shadow);
-transition:background .25s,border-color .25s
-}
-.toolbar{
-display:flex;
-gap:9px;
-flex-wrap:wrap;
-align-items:center;
-justify-content:center
-}
-.search{
-flex:1;
-min-width:200px;
-padding:11px 14px;
-border:1px solid var(--line);
-border-radius:10px;
-background:var(--subcard);
-color:var(--ink);
-font-family:inherit;
-font-size:14px;
-text-align:center
-}
-.search::placeholder{color:var(--muted)}
-.btn{
-border:0;
-border-radius:10px;
-padding:10px 14px;
-font-family:inherit;
-font-weight:700;
-cursor:pointer;
-font-size:13px;
-transition:transform .15s,opacity .15s,background .2s
-}
-.btn:active{transform:scale(0.96)}
-.primary{background:var(--blue);color:white}
-.gold{background:var(--gold);color:#142433}
-.green{background:#0f766e;color:white}
-.light{background:var(--badge-bg);color:var(--badge-ink)}
-.danger{background:#471d20;color:#ffb4b8}
-body:not([data-theme="dark"]) .danger{background:#fff0ef;color:#a33129}
-.stats{
-display:flex;
-gap:14px;
-flex-wrap:wrap;
-justify-content:center;
-color:var(--muted);
-font-size:13px;
-margin-top:14px;
-font-weight:600
-}
-.workspace-box{
-min-height:360px;
-border:2px dashed var(--line);
-border-radius:18px;
-background:var(--card);
-padding:24px;
-margin:22px 0;
-transition:background .25s,border-color .25s
-}
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(225px,1fr));
-gap:18px;
-align-content:start
-}
-.folder{
-background:var(--subcard);
-border:2px solid var(--folder-color,var(--line));
-border-radius:18px;
-padding:20px 15px;
-display:flex;
-flex-direction:column;
-gap:9px;
-align-items:center;
-justify-content:center;
-text-align:center;
-min-width:0;
-box-shadow:var(--shadow);
-transition:transform .2s,box-shadow .2s,background .25s;
-cursor:pointer
-}
-.folder:hover{transform:translateY(-4px)}
-.folder:active{transform:scale(0.97)}
-.animated-folder{
-width:92px;
-height:68px;
-position:relative;
-perspective:600px;
-margin:8px auto 4px
-}
-.folder-back{
-width:100%;
-height:100%;
-background:var(--folder-color,#d97706);
-filter:brightness(0.85);
-border-radius:8px 8px 10px 10px;
-position:relative;
-box-shadow:0 6px 12px rgba(0,0,0,0.2)
-}
-.folder-back::before{
-content:'';
-position:absolute;
-top:-9px;
-right:0;
-width:38px;
-height:11px;
-background:inherit;
-border-radius:6px 6px 0 0
-}
-.folder-paper{
-position:absolute;
-bottom:6px;
-left:10px;
-right:10px;
-height:52px;
-background:#ffffff;
-border-radius:4px;
-box-shadow:0 2px 5px rgba(0,0,0,0.15);
-transition:transform .35s cubic-bezier(0.34,1.56,0.64,1)
-}
-.folder-front{
-position:absolute;
-inset:0;
-background:var(--folder-color,#f59e0b);
-border-radius:8px 8px 10px 10px;
-transform-origin:bottom center;
-transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
-box-shadow:0 -2px 6px rgba(0,0,0,0.12)
-}
-.folder:hover .folder-front,.folder:active .folder-front{transform:rotateX(-38deg)}
-.folder:hover .folder-paper,.folder:active .folder-paper{transform:translateY(-14px)}
-.folderVisual{
-width:100%;
-height:110px;
-border-radius:13px;
-display:grid;
-place-items:center;
-background:var(--badge-bg);
-overflow:hidden
-}
-.folderVisual img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
-.folder:hover .folderVisual img{transform:scale(1.06)}
-.folderInfo{min-width:0;width:100%;flex:1;text-align:center}
-.folderName{font-size:16px;font-weight:700;overflow-wrap:anywhere}
-.folderMeta{font-size:11px;color:var(--muted);margin-top:4px}
-.folder button{margin:8px auto 0;width:100%}
-.notice{font-size:12px;color:var(--muted);line-height:1.8;margin:18px 2px}
-.hidden{display:none!important}
-.panel{margin:20px 0;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px}
-.back{margin-bottom:12px}
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #1e293b;
+      --surface-alt: #0f172a;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #7dd3fc;
+      --primary-light: rgba(56, 189, 248, 0.15);
+      --border: #334155;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
 
-.inner-search-box{margin:14px auto;max-width:540px}
-.files-list{display:flex;flex-direction:column;gap:12px;margin-top:15px}
-.file-row{
-background:var(--subcard);
-border:1px solid var(--line);
-border-right:4px solid var(--blue);
-border-radius:12px;
-padding:14px 16px;
-display:flex;
-flex-wrap:wrap;
-align-items:center;
-justify-content:space-between;
-gap:12px;
-text-align:right
-}
-.file-details{flex:1;min-width:220px}
-.file-main-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;overflow-wrap:anywhere;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.type-pill{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:700}
-.type-pdf{background:#fee2e2;color:#991b1b}
-.type-word{background:#dbeafe;color:#1e40af}
-.type-excel{background:#dcfce7;color:#166534}
-.type-ppt{background:#ffedd5;color:#9a3412}
-.type-img{background:#f3e8ff;color:#6b21a8}
-.file-badges{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted)}
-.file-badge{background:var(--badge-bg);color:var(--badge-ink);padding:4px 10px;border-radius:6px;display:inline-flex;align-items:center;gap:4px}
-.fileactions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
 
-footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
-.modal{position:fixed;inset:0;background:rgba(4,12,22,0.72);display:grid;place-items:center;padding:15px;z-index:50;overflow-y:auto}
-.dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:15px;padding:22px;width:min(450px,100%);box-shadow:0 15px 35px rgba(0,0,0,0.35)}
-.dialog h3{margin-top:0;color:var(--ink)}
-.dialog input{width:100%;padding:10px 12px;border:1px solid var(--line);background:var(--subcard);color:var(--ink);border-radius:9px;margin:5px 0 11px;text-align:center;font-family:inherit;font-size:14px}
-.dialog label{display:block;text-align:right;font-size:13px;font-weight:700;color:var(--ink);margin-top:5px}
-.dialog input[type=color]{height:44px;padding:4px}
-.dialog input[type=file]{font-size:12px}
-.dialog .hint{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px}
-.dialogActions{display:flex;gap:8px;justify-content:center;margin-top:14px}
-.tag{font-size:11px;background:var(--badge-bg);color:var(--badge-ink);padding:5px 10px;border-radius:20px;font-weight:700}
-.folderNumber{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 8px;border-radius:8px;background:#f7efd9;color:#725414;font-weight:700;font-size:12px;margin-left:6px;direction:ltr}
-.detailNumber{display:inline-block;background:#f7efd9;color:#725414;border-radius:8px;padding:4px 10px;font-size:14px;margin-left:8px;direction:ltr}
-.empty-inner{text-align:center;color:var(--muted);padding:35px 10px;border:1px dashed var(--line);border-radius:12px;background:var(--subcard)}
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-.theme-toggle{
-position:fixed;
-top:14px;
-right:14px;
-z-index:9999;
-background:rgba(255,255,255,0.18);
-backdrop-filter:blur(6px);
-border:1px solid rgba(255,255,255,0.35);
-color:#ffffff;
-padding:7px 13px;
-border-radius:22px;
-font-family:inherit;
-font-size:12px;
-font-weight:700;
-cursor:pointer;
-box-shadow:0 4px 12px rgba(0,0,0,0.2);
-display:flex;
-align-items:center;
-gap:5px
-}
-.theme-toggle:hover{background:rgba(255,255,255,0.28)}
+    /* علم العراق */
+    .iraq-flag {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      width: 54px;
+      height: 36px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .flag-red { background: #ce1126; flex: 1; }
+    .flag-white {
+      background: #ffffff;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flag-white span {
+      color: #007a3d;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    .flag-black { background: #000000; flex: 1; }
 
-.iraq-flag-corner{position:fixed;top:14px;left:14px;z-index:9999;perspective:400px}
-.flag-wave{width:70px;height:46px;border-radius:4px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.28);display:flex;flex-direction:column;position:relative;transform-origin:left center;animation:waveFlag 2.5s ease-in-out infinite alternate}
-.stripe{flex:1;width:100%}
-.stripe.red{background-color:#ce1126}
-.stripe.white{background-color:#ffffff;display:flex;align-items:center;justify-content:center}
-.stripe.black{background-color:#000000}
-.takbir{color:#007a3d;font-family:'Cairo',Tahoma,sans-serif;font-size:9px;font-weight:800;line-height:1}
-.gloss{position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,0) 20%,rgba(255,255,255,0.35) 45%,rgba(0,0,0,0.15) 65%,rgba(255,255,255,0) 85%);background-size:200% 100%;animation:shimmerWave 2.5s ease-in-out infinite alternate;pointer-events:none}
-@keyframes waveFlag{0%{transform:rotateY(-8deg) skewY(-2deg)}50%{transform:rotateY(8deg) skewY(2deg)}100%{transform:rotateY(-5deg) skewY(-1deg)}}
-@keyframes shimmerWave{0%{background-position:100% 0}100%{background-position:0% 0}}
-</style>
+    /* الترويسة */
+    header {
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 60%, #38bdf8 100%);
+      color: #ffffff;
+      padding: 2.2rem 1rem 2.8rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      opacity: 0.95;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.85rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+      z-index: 100;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    main {
+      max-width: 1200px;
+      width: 100%;
+      margin: -1.5rem auto 2rem;
+      padding: 0 1rem;
+      flex: 1;
+    }
+
+    /* شريط الأدوات والإحصائيات */
+    .toolbar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s, opacity 0.15s, background 0.2s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-outline {
+      background: var(--surface-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 0.35rem 0.65rem; font-size: 0.8rem; border-radius: 8px; }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      max-width: 380px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.55rem 0.9rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-stat {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-weight: 700;
+    }
+
+    /* شبكة المجلدات */
+    .folders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .folder-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .folder-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+    .folder-card.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* أيقونة المجلد ثلاثية الأبعاد المتحركة */
+    .folder-3d {
+      width: 74px;
+      height: 58px;
+      margin: 0 auto 0.75rem;
+      position: relative;
+      perspective: 400px;
+    }
+    .folder-back {
+      position: absolute;
+      inset: 0;
+      background: #0284c7;
+      border-radius: 6px 12px 8px 8px;
+    }
+    .folder-back::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      right: 0;
+      width: 32px;
+      height: 9px;
+      background: #0284c7;
+      border-radius: 6px 6px 0 0;
+    }
+    .folder-paper {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      right: 8px;
+      height: 42px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .folder-front {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 46px;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      border-radius: 6px 6px 8px 8px;
+      transform-origin: bottom;
+      transition: transform 0.3s ease;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    }
+    .folder-card:hover .folder-front {
+      transform: rotateX(-24deg);
+    }
+    .folder-card:hover .folder-paper {
+      transform: translateY(-6px);
+    }
+
+    .folder-custom-img {
+      width: 68px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 0 auto 0.7rem;
+      display: block;
+      border: 2px solid var(--primary);
+    }
+
+    .folder-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+      word-break: break-word;
+    }
+    .folder-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .folder-actions {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      display: flex;
+      gap: 4px;
+    }
+    .icon-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+    /* قسم عرض الملفات */
+    .files-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      box-shadow: var(--shadow);
+    }
+    .files-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+    th, td {
+      padding: 0.75rem 0.9rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    th {
+      background: var(--surface-alt);
+      font-weight: 800;
+      color: var(--primary);
+    }
+    tr:hover td {
+      background: var(--surface-alt);
+    }
+
+    .file-type-pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-block;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .storage-notice {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      background: var(--surface);
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px dashed var(--border);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* النوافذ المنبثقة (Modals) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-box {
+      background: var(--surface);
+      color: var(--text);
+      width: 100%;
+      max-width: 500px;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-box.modal-lg {
+      max-width: 850px;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-group {
+      margin-bottom: 0.95rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .form-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+
+    .preview-frame {
+      width: 100%;
+      height: 65vh;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .preview-img {
+      max-width: 100%;
+      max-height: 65vh;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
+    /* تنسيق الطباعة A4 */
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .iraq-flag, .theme-toggle, .toolbar-card, .folders-grid, .storage-notice, footer, .no-print {
+        display: none !important;
+      }
+      header {
+        background: none !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        padding: 0 0 1rem !important;
+        border-bottom: 2px solid #000;
+      }
+      main { margin: 1rem 0 !important; max-width: 100% !important; }
+      .files-section { border: none !important; box-shadow: none !important; padding: 0 !important; }
+      th, td { border: 1px solid #000 !important; color: #000 !important; }
+    }
+  </style>
 </head>
 <body>
 
-<button id="themeBtn" class="theme-toggle" title="تبديل المظهر">🌙 الوضع الليلي</button>
-
-<div class="iraq-flag-corner" title="العراق">
-  <div class="flag-wave">
-    <div class="stripe red"></div>
-    <div class="stripe white"><span class="takbir">الله أكبر</span></div>
-    <div class="stripe black"></div>
-    <div class="gloss"></div>
+  <!-- علم العراق -->
+  <div class="iraq-flag" title="العراق">
+    <div class="flag-red"></div>
+    <div class="flag-white"><span>الله أكبر</span></div>
+    <div class="flag-black"></div>
   </div>
-</div>
 
-<header>
-<div class="wrap">
-<h1>نشاطات المنظمات</h1>
-<p>الأرشيف الإلكتروني الشامل للمجلدات والوثائق</p>
-</div>
-</header>
+  <!-- زر الوضع الليلي -->
+  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 الوضع الليلي</button>
 
-<main class="wrap">
-<section id="home" class="hero">
-<div class="toolbar">
-<input id="search" class="search" placeholder="ابحث عن منظمة أو مجلد...">
-<button class="btn primary" id="addBtn">＋ إنشاء مجلد</button>
-<button class="btn green" id="exportExcelBtn">📊 كشف Excel</button>
-<button class="btn gold" id="printReportBtn">🖨️ تقرير A4</button>
-<button class="btn light" id="backupBtn">نسخة احتياطية</button>
-<button class="btn light" id="restoreBtn">استعادة نسخة</button>
-<input type="file" id="restoreFile" accept="application/json" class="hidden">
-</div>
-<div class="stats">
-<span id="count">0 مجلد</span>
-<span id="pdfCount">0 ملف مرفق</span>
-<span class="tag">PDF • صور • Excel • PowerPoint • Word</span>
-</div>
-</section>
+  <!-- الترويسة -->
+  <header>
+    <h1>نشاطات المنظمات</h1>
+    <p>الأرشيف الإلكتروني الشامل للمجلدات والوثائق</p>
+  </header>
 
-<section id="workspaceBox" class="workspace-box">
-  <div id="folders" class="grid"></div>
-</section>
+  <main>
+    <!-- شريط التحكم والإحصائيات -->
+    <section class="toolbar-card">
+      <div class="actions-row">
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="openFolderModal()">📁 + مجلد جديد</button>
+          <button class="btn btn-success" onclick="openFileModal()">📄 + إضافة ملف</button>
+          <button class="btn btn-outline" onclick="exportExcel()">📊 تصدير Excel</button>
+          <button class="btn btn-outline" onclick="window.print()">🖨️ طباعة A4</button>
+          <button class="btn btn-outline" onclick="exportBackup()">💾 نسخة احتياطية</button>
+          <button class="btn btn-outline" onclick="document.getElementById('importInput').click()">📂 استعادة نسخة</button>
+          <input type="file" id="importInput" accept=".json" style="display:none" onchange="importBackup(event)">
+        </div>
 
-<section id="detail" class="panel hidden">
-<button class="btn light back" id="backBtn">→ الرجوع للمجلدات</button>
-<h2 id="detailName" style="margin:6px 0"></h2>
-<p id="detailCreated" class="folderMeta"></p>
-
-<div class="toolbar" style="margin:15px 0">
-<button class="btn gold" id="openAddFileModalBtn">＋ إضافة ملف للقائمة</button>
-<button class="btn light" id="renameBtn">تعديل بيانات المجلد</button>
-<button class="btn danger" id="deleteBtn">حذف المجلد</button>
-</div>
-
-<div class="inner-search-box">
-  <input id="fileSearch" class="search" placeholder="🔍 ابحث داخل الملفات (باسم الملف، صاحب الملف، أو التاريخ)...">
-</div>
-
-<div id="fileArea"></div>
-</section>
-
-<p class="notice">
-تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
-</p>
-</main>
-
-<footer>نشاطات المنظمات © الأرشيف المحلي</footer>
-
-<div id="modal" class="modal hidden">
-<div class="dialog">
-<h3 id="modalTitle">إنشاء مجلد جديد</h3>
-<label for="folderName">اسم المجلد / المنظمة</label>
-<input id="folderName" maxlength="120" placeholder="اكتب اسم المجلد">
-<label for="folderColor">لون المجلد</label>
-<input id="folderColor" type="color" value="#f59e0b">
-<label for="folderImage">صورة للمجلد (اختياري)</label>
-<input id="folderImage" type="file" accept="image/*">
-<div class="hint" id="imageHint">اترك الصورة فارغة لتظهر أيقونة الفولدر المتحركة.</div>
-<div class="dialogActions">
-<button class="btn primary" id="saveFolder">حفظ</button>
-<button class="btn light" id="cancelModal">إلغاء</button>
-</div>
-</div>
-</div>
-
-<div id="fileModal" class="modal hidden">
-<div class="dialog">
-<h3 id="fileModalTitle">إضافة ملف إلى القائمة</h3>
-<label for="docInput" id="docInputLabel">1. اختر الملف (PDF، صورة، Excel، PowerPoint، أو Word)</label>
-<input id="docInput" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.gif,.xlsx,.xls,.csv,.pptx,.ppt,.doc,.docx,application/pdf,image/*,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-<label for="customFileTitle">2. اسم الملف / الكتاب</label>
-<input id="customFileTitle" maxlength="150" placeholder="مثال: كتاب رسمي / جدول إحصائي / عرض تقديمي">
-<label for="customFileOwner">3. صاحب الملف</label>
-<input id="customFileOwner" maxlength="120" placeholder="اكتب اسم صاحب الملف أو الجهة">
-<label for="customFileDate">4. تاريخ حفظ الملف</label>
-<input id="customFileDate" type="date">
-<div class="hint" id="fileEditHint">أكمل البيانات أعلاه ثم اضغط «حفظ الملف» لإدراجه في قائمة الفولدر.</div>
-<div class="dialogActions">
-<button class="btn primary" id="saveFileBtn">حفظ الملف</button>
-<button class="btn light" id="cancelFileModal">إلغاء</button>
-</div>
-</div>
-</div>
-<script>
-(()=>{
-'use strict';
-
-const themeBtn = document.getElementById('themeBtn');
-function applyTheme(t){
-  if(t === 'dark'){
-    document.body.setAttribute('data-theme','dark');
-    themeBtn.textContent = '☀️ الوضع النهاري';
-  } else {
-    document.body.removeAttribute('data-theme');
-    themeBtn.textContent = '🌙 الوضع الليلي';
-  }
-}
-applyTheme(localStorage.getItem('org_archive_theme') || 'light');
-themeBtn.onclick = () => {
-  const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('org_archive_theme', next);
-  applyTheme(next);
-};
-
-const DB='orgActivitiesLocalDB';
-const STORE='folders';
-const VERSION=1;
-
-let db,activeId=null,renameMode=false,editFileIdx=null;
-const $=id=>document.getElementById(id);
-
-function openDB(){
-return new Promise((resolve,reject)=>{
-const req=indexedDB.open(DB,VERSION);
-req.onupgradeneeded=()=>{
-const d=req.result;
-if(!d.objectStoreNames.contains(STORE)){
-const s=d.createObjectStore(STORE,{keyPath:'id'});
-s.createIndex('name','name',{unique:false});
-}
-};
-req.onsuccess=()=>resolve(req.result);
-req.onerror=()=>reject(req.error);
-});
-}
-
-function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE);}
-function all(){return new Promise((res,rej)=>{const r=tx().getAll();r.onsuccess=()=>res(r.result.sort((a,b)=>a.name.localeCompare(b.name,'ar')));r.onerror=()=>rej(r.error);});}
-function put(v){return new Promise((res,rej)=>{const r=tx('readwrite').put(v);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
-function del(id){return new Promise((res,rej)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-
-function formatCreatedAt(value){
-if(!value)return 'وقت الإنشاء غير متوفر';
-const d=new Date(value);
-if(Number.isNaN(d.getTime()))return 'وقت الإنشاء غير متوفر';
-return new Intl.DateTimeFormat('ar-IQ',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:true}).format(d);
-}
-
-function getFolderFiles(folder){
-if(Array.isArray(folder.files)) return folder.files;
-if(folder.file) return [{id:'legacy_1',title:folder.fileName||'ملف PDF',owner:'غير محدد',date:'',blob:folder.file,origName:folder.fileName||'document.pdf'}];
-return [];
-}
-
-function detectFileType(f){
-const name = (f.origName || (f.blob && f.blob.name) || '').toLowerCase();
-const mime = (f.blob && f.blob.type) || '';
-if(mime.includes('pdf') || name.endsWith('.pdf')) return {label:'PDF', cls:'type-pdf', canPreview:true, ext:'.pdf'};
-if(mime.includes('spreadsheet') || mime.includes('excel') || name.endsWith('.xlsx') || name.endsWith('.xls') || name.endsWith('.csv')) return {label:'Excel', cls:'type-excel', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.xlsx'};
-if(mime.includes('presentation') || mime.includes('powerpoint') || name.endsWith('.pptx') || name.endsWith('.ppt')) return {label:'PowerPoint', cls:'type-ppt', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.pptx'};
-if(mime.includes('word') || mime.includes('document') || name.endsWith('.docx') || name.endsWith('.doc')) return {label:'Word', cls:'type-word', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.docx'};
-if(mime.startsWith('image/') || /\.(jpg|jpeg|png|webp|gif)$/i.test(name)) return {label:'صورة', cls:'type-img', canPreview:true, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || '.jpg'};
-return {label:'ملف', cls:'type-pdf', canPreview:false, ext: name.match(/\.[a-z0-9]+$/i)?.[0] || ''};
-}
-
-async function ensureFolderNumbers(list){
-let maxNo=list.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0);
-for(const x of list){
-if(!Number.isInteger(x.folderNo)||x.folderNo<1){maxNo++;x.folderNo=maxNo;await put(x);}
-}
-return list;
-}
-
-async function render(){
-let list=await all();
-list=await ensureFolderNumbers(list);
-const q=$('search').value.trim().toLocaleLowerCase('ar');
-const filtered=list.filter(x=>x.name.toLocaleLowerCase('ar').includes(q));
-const totalDocs = list.reduce((sum, x) => sum + getFolderFiles(x).length, 0);
-
-$('count').textContent=list.length.toLocaleString('ar')+' مجلد';
-$('pdfCount').textContent=totalDocs.toLocaleString('ar')+' ملف مرفق';
-
-$('folders').innerHTML=filtered.map(x=>{
-const color=x.color||'#f59e0b';
-const image=x.image?URL.createObjectURL(x.image):'';
-const filesCount = getFolderFiles(x).length;
-const visualHtml = image
-  ? `<div class="folderVisual"><img src="${image}" alt="صورة ${esc(x.name)}"></div>`
-  : `<div class="animated-folder"><div class="folder-back"><div class="folder-paper"></div><div class="folder-front"></div></div></div>`;
-
-return `<article class="folder" data-id="${esc(x.id)}" style="--folder-color:${esc(color)}">
-${visualHtml}
-<div class="folderInfo">
-<div class="folderName"><span class="folderNumber">${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}</div>
-<div class="folderMeta">🕒 ${esc(formatCreatedAt(x.createdAt))}</div>
-<div class="folderMeta">${filesCount > 0 ? '📄 عدد الملفات: ' + filesCount : 'فارغ (لا توجد ملفات)'}</div>
-<button class="btn light openFolder" data-id="${esc(x.id)}">فتح المجلد ←</button>
-</div>
-</article>`;
-}).join('');
-
-document.querySelectorAll('.folder').forEach(card=>{
-card.onclick=()=>{const id=card.dataset.id;setTimeout(()=>openFolder(id),180);};
-});
-}
-
-async function openFolder(id){
-const x=(await all()).find(v=>v.id===id);
-if(!x)return;
-activeId=id;
-$('fileSearch').value='';
-$('home').classList.add('hidden');
-$('workspaceBox').classList.add('hidden');
-$('detail').classList.remove('hidden');
-$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
-$('detailCreated').textContent='🕒 تاريخ ووقت إنشاء المجلد: '+formatCreatedAt(x.createdAt);
-renderFileList(x);
-}
-
-function renderFileList(x){
-const allFiles = getFolderFiles(x);
-const fq = $('fileSearch').value.trim().toLocaleLowerCase('ar');
-
-const indexedFiles = allFiles.map((f, idx) => ({f, idx})).filter(item => {
-  if(!fq) return true;
-  const t = (item.f.title || '').toLocaleLowerCase('ar');
-  const o = (item.f.owner || '').toLocaleLowerCase('ar');
-  const d = (item.f.date || '').toLocaleLowerCase('ar');
-  return t.includes(fq) || o.includes(fq) || d.includes(fq);
-});
-
-if(allFiles.length === 0){
-$('fileArea').innerHTML = '<div class="empty-inner">لا توجد ملفات في هذا الفولدر بعد. اضغط «＋ إضافة ملف للقائمة» لإضافة أول ملف.</div>';
-return;
-}
-if(indexedFiles.length === 0){
-$('fileArea').innerHTML = '<div class="empty-inner">لا توجد ملفات مطابقة لنتيجة البحث.</div>';
-return;
-}
-
-$('fileArea').innerHTML = `<div class="files-list">` + indexedFiles.map(({f, idx}) => {
-const sizeMB = f.blob ? (f.blob.size / 1024 / 1024).toFixed(2) + ' MB' : '';
-const fType = detectFileType(f);
-return `<div class="file-row">
-  <div class="file-details">
-    <div class="file-main-title">
-      <span class="type-pill ${fType.cls}">${fType.label}</span>
-      <span>${esc(f.title)}</span>
-    </div>
-    <div class="file-badges">
-      <span class="file-badge">👤 <b>صاحب الملف:</b> ${esc(f.owner || 'غير محدد')}</span>
-      <span class="file-badge">📅 <b>تاريخ الحفظ:</b> ${esc(f.date || 'غير محدد')}</span>
-      ${sizeMB ? `<span class="file-badge">💾 ${sizeMB}</span>` : ''}
-    </div>
-  </div>
-  <div class="fileactions">
-    ${fType.canPreview ? `<button class="btn primary view-btn" data-idx="${idx}">معاينة</button>` : ''}
-    ${fType.canPreview ? `<button class="btn light print-btn" data-idx="${idx}">طباعة</button>` : ''}
-    <button class="btn light dl-btn" data-idx="${idx}">تنزيل</button>
-    <button class="btn gold edit-btn" data-idx="${idx}">تعديل</button>
-    <button class="btn danger del-btn" data-idx="${idx}">حذف</button>
-  </div>
-</div>`;
-}).join('') + `</div>`;
-
-document.querySelectorAll('.view-btn').forEach(btn => {
-btn.onclick = () => {const f = allFiles[btn.dataset.idx];if(f && f.blob) window.open(URL.createObjectURL(f.blob), '_blank');};
-});
-document.querySelectorAll('.print-btn').forEach(btn => {
-btn.onclick = () => {const f = allFiles[btn.dataset.idx];if(f && f.blob){const w = window.open(URL.createObjectURL(f.blob), '_blank');if(w) w.onload = () => w.print();}};
-});
-document.querySelectorAll('.dl-btn').forEach(btn => {
-btn.onclick = () => {
-  const f = allFiles[btn.dataset.idx];
-  if(f && f.blob){
-    const fType = detectFileType(f);
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(f.blob);
-    a.download = (f.title || 'document') + fType.ext;
-    a.click();
-  }
-};
-});
-document.querySelectorAll('.edit-btn').forEach(btn => {
-btn.onclick = () => {
-  const idx = Number(btn.dataset.idx);
-  const f = allFiles[idx];
-  if(!f) return;
-  editFileIdx = idx;
-  $('fileModalTitle').textContent = 'تعديل بيانات الملف';
-  $('customFileTitle').value = f.title || '';
-  $('customFileOwner').value = f.owner || '';
-  $('customFileDate').value = f.date || '';
-  $('docInput').value = '';
-  $('docInputLabel').textContent = 'استبدال الملف المرفق (اختياري)';
-  $('fileEditHint').textContent = 'اترك اختيار الملف فارغاً للإبقاء على الملف الحالي وتعديل البيانات فقط.';
-  $('fileModal').classList.remove('hidden');
-  $('customFileTitle').focus();
-};
-});
-document.querySelectorAll('.del-btn').forEach(btn => {
-btn.onclick = async () => {
-const idx = Number(btn.dataset.idx);
-if(confirm('هل تريد حذف هذا الملف من القائمة؟')){
-allFiles.splice(idx, 1);x.files = allFiles;delete x.file;delete x.fileName;await put(x);renderFileList(x);await render();
-}
-};
-});
-}
-
-$('fileSearch').oninput = async () => {
-  const x = (await all()).find(v => v.id === activeId);
-  if(x) renderFileList(x);
-};
-
-$('docInput').onchange = () => {
-  const f = $('docInput').files[0];
-  if(f && !$('customFileTitle').value.trim()){
-    $('customFileTitle').value = f.name.replace(/\.[^/.]+$/, '');
-  }
-};
-
-$('openAddFileModalBtn').onclick = () => {
-editFileIdx = null;
-$('fileModalTitle').textContent = 'إضافة ملف إلى القائمة';
-$('customFileTitle').value = '';
-$('customFileOwner').value = '';
-$('customFileDate').value = new Date().toISOString().slice(0, 10);
-$('docInput').value = '';
-$('docInputLabel').textContent = '1. اختر الملف (PDF، صورة، Excel، PowerPoint، أو Word)';
-$('fileEditHint').textContent = 'أكمل البيانات أعلاه ثم اضغط «حفظ الملف» لإدراجه في قائمة الفولدر.';
-$('fileModal').classList.remove('hidden');
-};
-
-$('cancelFileModal').onclick = () => {$('fileModal').classList.add('hidden');};
-
-$('saveFileBtn').onclick = async () => {
-const title = $('customFileTitle').value.trim();
-const owner = $('customFileOwner').value.trim();
-const date = $('customFileDate').value;
-const f = $('docInput').files[0];
-
-if(editFileIdx === null && !f){alert('يرجى اختيار ملف أولاً (PDF أو صورة أو Excel أو PowerPoint)');return;}
-if(!title){alert('يرجى كتابة اسم الملف');return;}
-if(!owner){alert('يرجى كتابة اسم صاحب الملف');return;}
-if(!date){alert('يرجى تحديد تاريخ حفظ الملف');return;}
-if(f && f.size > 100 * 1024 * 1024){alert('حجم الملف أكبر من 100 ميغابايت');return;}
-
-const x = (await all()).find(v => v.id === activeId);
-if(x){
-const currentFiles = getFolderFiles(x);
-if(editFileIdx !== null){
-  const existing = currentFiles[editFileIdx];
-  existing.title = title;
-  existing.owner = owner;
-  existing.date = date;
-  if(f){ existing.blob = f; existing.origName = f.name; }
-} else {
-  currentFiles.push({id:crypto.randomUUID(),title,owner,date,blob:f,origName:f.name});
-}
-x.files = currentFiles;delete x.file;delete x.fileName;
-await put(x);$('fileModal').classList.add('hidden');renderFileList(x);await render();
-}
-};
-
-$('exportExcelBtn').onclick = async () => {
-  const list = await all();
-  if(list.length === 0){ alert('لا توجد مجلدات لتصديرها.'); return; }
-  let csv = '\uFEFFرقم المجلد,اسم المنظمة / المجلد,تاريخ إنشاء المجلد,عدد الملفات المرفقة,تفاصيل الملفات (الاسم - صاحب الملف - تاريخ الحفظ)\n';
-  for(const x of list){
-    const files = getFolderFiles(x);
-    const details = files.map(f => `[${f.title} - ${f.owner} - ${f.date}]`).join(' | ') || 'لا توجد ملفات';
-    const row = [
-      `"${String(x.folderNo).padStart(4,'0')}"`,
-      `"${(x.name||'').replace(/"/g,'""')}"`,
-      `"${formatCreatedAt(x.createdAt)}"`,
-      files.length,
-      `"${details.replace(/"/g,'""')}"`
-    ];
-    csv += row.join(',') + '\n';
-  }
-  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-  downloadBlob(blob, 'كشف_نشاطات_المنظمات_' + new Date().toISOString().slice(0,10) + '.csv');
-};
-
-$('printReportBtn').onclick = async () => {
-  const list = await all();
-  if(list.length === 0){ alert('لا توجد مجلدات لطباعة التقرير.'); return; }
-  const totalFiles = list.reduce((s, x) => s + getFolderFiles(x).length, 0);
-  const today = new Intl.DateTimeFormat('ar-IQ', {year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-
-  const rowsHtml = list.map(x => {
-    const files = getFolderFiles(x);
-    const filesSummary = files.length > 0
-      ? files.map(f => `• <b>${esc(f.title)}</b> (${esc(f.owner)} - ${esc(f.date)})`).join('<br>')
-      : '<span style="color:#777">لا توجد ملفات</span>';
-    return `<tr>
-      <td style="text-align:center;font-weight:bold">${String(x.folderNo).padStart(4,'0')}</td>
-      <td style="font-weight:bold">${esc(x.name)}</td>
-      <td style="text-align:center">${files.length}</td>
-      <td style="font-size:12px;line-height:1.6">${filesSummary}</td>
-    </tr>`;
-  }).join('');
-
-  const printWin = window.open('', '_blank');
-  printWin.document.write(`<!DOCTYPE html>
-  <html lang="ar" dir="rtl">
-  <head>
-  <meta charset="UTF-8">
-  <title>كشف نشاطات المنظمات</title>
-  <style>
-    @page { size: A4; margin: 15mm; }
-    body { font-family: Tahoma, Arial, sans-serif; color: #111; direction: rtl; }
-    .rep-header { text-align: center; border-bottom: 3px double #0c3b5e; padding-bottom: 12px; margin-bottom: 18px; }
-    .rep-header h2 { margin: 0 0 6px; color: #0c3b5e; font-size: 22px; }
-    .rep-meta { display: flex; justify-content: space-between; font-size: 13px; color: #444; margin-top: 8px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-    th, td { border: 1px solid #888; padding: 8px 10px; vertical-align: top; }
-    th { background: #0c3b5e; color: #fff; text-align: center; }
-    tr:nth-child(even) { background: #f4f8fb; }
-  </style>
-  </head>
-  <body>
-    <div class="rep-header">
-      <h2>كشف إحصائي بنشاطات المنظمات والملفات المؤرشفة</h2>
-      <div class="rep-meta">
-        <span>إجمالي المنظمات: <b>${list.length}</b></span>
-        <span>إجمالي الوثائق: <b>${totalFiles}</b></span>
-        <span>تاريخ التقرير: <b>${today}</b></span>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="🔍 ابحث باسم الملف، الجهة، أو المجلد..." oninput="renderAll()">
+        </div>
       </div>
+
+      <div class="stats-bar">
+        <div>
+          <span class="badge-stat" id="folderCountStat">0 مجلد</span>
+          <span class="badge-stat" id="fileCountStat">0 ملف مرفق</span>
+        </div>
+        <div>PDF • صور • Excel • PowerPoint • Word</div>
+      </div>
+    </section>
+
+    <!-- شبكة المجلدات -->
+    <section class="folders-grid" id="foldersGrid"></section>
+
+    <!-- قسم عرض الملفات -->
+    <section class="files-section">
+      <div class="files-header">
+        <div>
+          <h2 id="currentFolderTitle">جميع الملفات المؤرشفة</h2>
+          <p id="currentFolderDesc" style="font-size:0.88rem; color:var(--text-muted);">اختر مجلداً من الأعلى أو استعرض كافة الوثائق</p>
+        </div>
+        <button class="btn btn-outline btn-sm no-print" id="showAllBtn" onclick="selectFolder(null)" style="display:none;">عرض الكل</button>
+      </div>
+
+      <div class="table-responsive" id="filesTableContainer"></div>
+    </section>
+
+    <p class="storage-notice">
+      تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
+    </p>
+  </main>
+
+  <footer>نشاطات المنظمات © الأرشيف المحلي</footer>
+
+  <!-- نافذة إنشاء مجلد جديد -->
+  <div class="modal-backdrop" id="folderModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>إنشاء مجلد جديد</h3>
+        <button class="icon-btn" onclick="closeModal('folderModal')">✕</button>
+      </div>
+      <form onsubmit="saveFolder(event)">
+        <div class="form-group">
+          <label>اسم المجلد / التصنيف *</label>
+          <input type="text" id="folderNameInput" required placeholder="مثال: كتب رسمية 2026">
+        </div>
+        <div class="form-group">
+          <label>وصف مختصر (اختياري)</label>
+          <input type="text" id="folderDescInput" placeholder="مثال: أرشيف المخاطبات والأنشطة الشهرية">
+        </div>
+        <div class="form-group">
+          <label>صورة غلاف للمجلد (اختياري)</label>
+          <input type="file" id="folderImgInput" accept="image/*">
+          <div class="form-hint">اترك الصورة فارغة لتظهر أيقونة الفولدر المتحركة.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('folderModal')">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ المجلد</button>
+        </div>
+      </form>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:75px">رقم المجلد</th>
-          <th style="width:200px">اسم المنظمة / المجلد</th>
-          <th style="width:75px">عدد الملفات</th>
-          <th>قائمة الملفات (الاسم / صاحب الملف / تاريخ الحفظ)</th>
-        </tr>
-      </thead>
-      <tbody>${rowsHtml}</tbody>
-    </table>
-    <script>window.onload = () => { window.print(); };<\/script>
-  </body>
-  </html>`);
-  printWin.document.close();
-};
+  </div>
 
-function showModal(rename=false){
-renameMode=rename;
-$('modalTitle').textContent=rename?'تعديل بيانات المجلد':'إنشاء مجلد جديد';
-$('folderName').value='';$('folderColor').value='#f59e0b';$('folderImage').value='';
-$('imageHint').textContent='اترك الصورة فارغة لتظهر أيقونة الفولدر المتحركة.';
-if(rename){
-all().then(list=>{
-const x=list.find(v=>v.id===activeId);
-if(x){$('folderName').value=x.name;$('folderColor').value=x.color||'#f59e0b';$('imageHint').textContent=x.image?'توجد صورة حالية؛ اختيار صورة جديدة سيستبدلها.':'لا توجد صورة حالية.';}
-});
-}
-$('modal').classList.remove('hidden');$('folderName').focus();
-}
+  <!-- نافذة إضافة ملف -->
+  <div class="modal-backdrop" id="fileModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>إضافة ملف إلى القائمة</h3>
+        <button class="icon-btn" onclick="closeModal('fileModal')">✕</button>
+      </div>
+      <form onsubmit="saveFile(event)">
+        <div class="form-group">
+          <label>اختر المجلد *</label>
+          <select id="fileFolderSelect" required></select>
+        </div>
+        <div class="form-group">
+          <label>عنوان الوثيقة / الملف *</label>
+          <input type="text" id="fileTitleInput" required placeholder="مثال: تقرير نشاط منظمة الأمل">
+        </div>
+        <div class="form-group">
+          <label>اسم المنظمة / الجهة المعنية *</label>
+          <input type="text" id="fileOwnerInput" required placeholder="مثال: منظمة الإغاثة الإنسانية">
+        </div>
+        <div class="form-group">
+          <label>تاريخ الوثيقة *</label>
+          <input type="date" id="fileDateInput" required>
+        </div>
+        <div class="form-group">
+          <label>اختر الملف من جهازك (PDF, Word, Excel, صورة) *</label>
+          <input type="file" id="fileAttachmentInput" required accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*">
+          <div class="form-hint">أكمل البيانات أعلاه ثم اضغط «حفظ الملف» لإدراجه في قائمة الفولدر.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('fileModal')">إلغاء</button>
+          <button type="submit" class="btn btn-success">حفظ الملف</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-$('addBtn').onclick=()=>showModal(false);
-$('cancelModal').onclick=()=>{$('modal').classList.add('hidden');};
+  <!-- نافذة معاينة الملف -->
+  <div class="modal-backdrop" id="previewModal">
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <h3 id="previewTitle">معاينة الوثيقة</h3>
+        <button class="icon-btn" onclick="closeModal('previewModal')">✕</button>
+      </div>
+      <div id="previewContent"></div>
+    </div>
+  </div>
 
-$('saveFolder').onclick=async()=>{
-const name=$('folderName').value.trim();
-if(!name){alert('اكتب اسم المجلد أولاً');return;}
-const chosen=$('folderImage').files[0];
-if(chosen&&!chosen.type.startsWith('image/')){alert('يرجى اختيار ملف صورة');return;}
+  <script>
+    const DB_KEY = 'org_archive_data_v1';
+    let appData = { folders: [], files: [] };
+    let selectedFolderId = null;
 
-if(renameMode){
-const x=(await all()).find(v=>v.id===activeId);
-if(x){
-x.name=name;x.color=$('folderColor').value;
-if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}x.image=chosen;}
-await put(x);
-$('detailName').innerHTML=`<span class="detailNumber">رقم ${String(x.folderNo).padStart(4,'0')}</span>${esc(x.name)}`;
-}
-}else{
-const existing=await all();
-const folderNo=existing.reduce((m,x)=>Math.max(m,Number(x.folderNo)||0),0)+1;
-const record={id:crypto.randomUUID(),name,folderNo,createdAt:Date.now(),color:$('folderColor').value,files:[]};
-if(chosen){if(chosen.size>8*1024*1024){alert('حجم الصورة يجب أن يكون أقل من 8 ميغابايت');return;}record.image=chosen;}
-await put(record);
-}
-$('modal').classList.add('hidden');await render();
-};
+    // تحميل البيانات عند التشغيل
+    function init() {
+      const saved = localStorage.getItem(DB_KEY);
+      if (saved) {
+        try {
+          appData = JSON.parse(saved);
+        } catch (e) {
+          appData = { folders: [], files: [] };
+        }
+      }
+      if (!appData.folders.length) {
+        appData.folders.push({
+          id: 'default-1',
+          name: 'الأرشيف العام',
+          desc: 'المجلد الافتراضي للوثائق والكتب الرسمية',
+          image: ''
+        });
+        persist();
+      }
+      const savedTheme = localStorage.getItem('org_archive_theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeBtn').textContent = '☀️ الوضع النهاري';
+      }
+      document.getElementById('fileDateInput').valueAsDate = new Date();
+      renderAll();
+    }
 
-$('folderName').onkeydown=e=>{if(e.key==='Enter')$('saveFolder').click();};
-$('search').oninput=render;
-
-$('backBtn').onclick=()=>{
-$('detail').classList.add('hidden');$('home').classList.remove('hidden');$('workspaceBox').classList.remove('hidden');render();
-};
-
-$('renameBtn').onclick=()=>showModal(true);
-
-$('deleteBtn').onclick=async()=>{
-if(confirm('حذف المجلد وجميع الملفات الموجودة بداخله نهائياً؟')){
-await del(activeId);activeId=null;$('detail').classList.add('hidden');$('home').classList.remove('hidden');$('workspaceBox').classList.remove('hidden');await render();
-}
-};
-
-function blobToBase64(blob){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=()=>rej(r.error);r.readAsDataURL(blob);});}
-function downloadBlob(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),3000);}
-
-$('backupBtn').onclick=async()=>{
-try{
-const list=await all();const data=[];
-for(const x of list){
-let image=null;
-if(x.image) image={type:x.image.type||'image/jpeg',data:await blobToBase64(x.image)};
-const rawFiles = getFolderFiles(x);
-const serializedFiles = [];
-for(const f of rawFiles){
-if(f.blob) serializedFiles.push({id:f.id,title:f.title,owner:f.owner,date:f.date,origName:f.origName,type:f.blob.type||'application/octet-stream',data:await blobToBase64(f.blob)});
-}
-data.push({id:x.id,name:x.name,folderNo:x.folderNo,createdAt:x.createdAt,color:x.color||'#f59e0b',image,files:serializedFiles});
-}
-const blob=new Blob([JSON.stringify({format:'org-activities-backup-v2',folders:data})],{type:'application/json'});
-downloadBlob(blob,'org-activities-backup-'+new Date().toISOString().slice(0,10)+'.json');
-}catch(e){alert('تعذر إنشاء النسخة الاحتياطية: '+e.message);}
-};
-
-$('restoreBtn').onclick=()=>$('restoreFile').click();
-
-$('restoreFile').onchange=async e=>{
-const f=e.target.files[0];if(!f)return;
-try{
-const data=JSON.parse(await f.text());
-if((data.format!=='org-activities-backup-v1' && data.format!=='org-activities-backup-v2') || !Array.isArray(data.folders)) throw Error('صيغة النسخة غير صحيحة');
-if(!confirm('ستتم إضافة المجلدات من النسخة الاحتياطية. متابعة؟'))return;
-for(const v of data.folders){
-let image;
-if(v.image){const raw=atob(v.image.data);const arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);image=new Blob([arr],{type:v.image.type||'image/jpeg'});}
-const restoredFiles = [];
-if(Array.isArray(v.files)){
-for(const sf of v.files){
-const raw=atob(sf.data);const arr=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
-restoredFiles.push({id:sf.id||crypto.randomUUID(),title:sf.title||'ملف مرفق',owner:sf.owner||'غير محدد',date:sf.date||'',origName:sf.origName||'document.pdf',blob:new Blob([arr],{type:sf.type||'application/octet-stream'})});
-}
-}
-await put({id:v.id||crypto.randomUUID(),name:v.name,...(Number.isInteger(v.folderNo)?{folderNo:v.folderNo}:{}),createdAt:v.createdAt||Date.now(),color:v.color||'#f59e0b',...(image?{image}:{}),files:restoredFiles});
-}
-await render();alert('تمت استعا
+    function persist() {
+      try {
+        localStorage.setItem(DB_KEY, JSON.stringify(appData));
+      } catch (e) {
+     
