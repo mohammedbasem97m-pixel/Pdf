@@ -1090,6 +1090,253 @@ console.error(e);
 
   .custom-modal-box input:focus {
     border-color: #007a3d;
+<!-- قسم الفولدرات المتحركة -->
+<section class="folders-workspace">
+  <div class="workspace-toolbar">
+    <button id="btnAddFolder" class="btn-create-folder">
+      <span>+</span> إنشاء فولدر جديد
+    </button>
+    <span id="foldersCounter" class="folders-count">0 فولدر</span>
+  </div>
+
+  <!-- المساحة الفارغة التي ستظهر فيها الفولدرات -->
+  <div id="foldersGrid" class="folders-grid"></div>
+</section>
+
+<!-- نافذة إنشاء الفولدر -->
+<div id="folderModal" class="custom-modal" style="display: none;">
+  <div class="custom-modal-box">
+    <h3>إنشاء فولدر جديد</h3>
+    <input type="text" id="newFolderName" placeholder="اكتب اسم الفولدر هنا..." />
+    <div class="modal-actions">
+      <button id="btnSaveFolder" class="btn-confirm">إنشاء</button>
+      <button id="btnCancelFolder" class="btn-cancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .folders-workspace {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 20px;
+    direction: rtl;
+    font-family: 'Tahoma', 'Arial', sans-serif;
+  }
+
+  .workspace-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .btn-create-folder {
+    background: linear-gradient(135deg, #007a3d, #005a2d);
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 122, 61, 0.25);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-create-folder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 122, 61, 0.35);
+  }
+
+  .folders-count {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  /* المساحة الفارغة للفولدرات */
+  .folders-grid {
+    min-height: 360px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    background-color: rgba(248, 250, 252, 0.7);
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
+    align-content: start;
+  }
+
+  /* تصميم بطاقة الفولدر */
+  .folder-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 15px 10px;
+    border-radius: 14px;
+    transition: background 0.25s;
+    user-select: none;
+  }
+
+  .folder-card:hover {
+    background: rgba(226, 232, 240, 0.5);
+  }
+
+  /* زر حذف الفولدر */
+  .delete-folder-btn {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+
+  .folder-card:hover .delete-folder-btn {
+    opacity: 1;
+  }
+
+  .delete-folder-btn:hover {
+    transform: scale(1.15);
+  }
+
+  /* أيقونة الفولدر المتحركة (3D) */
+  .animated-folder {
+    width: 96px;
+    height: 72px;
+    position: relative;
+    perspective: 600px;
+    margin-bottom: 12px;
+  }
+
+  /* الجزء الخلفي للفولدر */
+  .folder-back {
+    width: 100%;
+    height: 100%;
+    background: #d97706;
+    border-radius: 8px 8px 10px 10px;
+    position: relative;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* لسان الفولدر العلوي */
+  .folder-back::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 0;
+    width: 40px;
+    height: 12px;
+    background: #d97706;
+    border-radius: 6px 6px 0 0;
+  }
+
+  /* الورقة داخل الفولدر */
+  .folder-paper {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    right: 10px;
+    height: 58px;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* الغطاء الأمامي المتحرك */
+  .folder-front {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    border-radius: 8px 8px 10px 10px;
+    transform-origin: bottom center;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* حركة الفولدر عند التمرير أو الضغط */
+  .folder-card:hover .folder-front,
+  .folder-card.is-open .folder-front {
+    transform: rotateX(-38deg);
+  }
+
+  .folder-card:hover .folder-paper,
+  .folder-card.is-open .folder-paper {
+    transform: translateY(-14px);
+  }
+
+  .folder-card:active .animated-folder {
+    transform: scale(0.93);
+    transition: transform 0.1s;
+  }
+
+  .folder-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e293b;
+    text-align: center;
+    word-break: break-word;
+    max-width: 130px;
+  }
+
+  /* نافذة الإدخال */
+  .custom-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    direction: rtl;
+  }
+
+  .custom-modal-box {
+    background: #fff;
+    padding: 24px;
+    border-radius: 14px;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+
+  .custom-modal-box h3 {
+    margin: 0 0 15px;
+    color: #1e293b;
+  }
+
+  .custom-modal-box input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  .custom-modal-box input:focus {
+    border-color: #007a3d;
   }
 
   .modal-actions {
@@ -1198,9 +1445,7 @@ console.error(e);
     renderFolders();
   });
 </script>
-  
-  
-})();
+
 </script>
 <!-- علم العراق المتحرك في الزاوية -->
 <div class="iraq-flag-corner" title="العراق">
