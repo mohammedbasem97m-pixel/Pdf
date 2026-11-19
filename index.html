@@ -20,7 +20,6 @@
       --border: #cbd5e1;
       --danger: #dc2626;
       --success: #16a34a;
-      --warning: #d97706;
       --shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
       --radius: 14px;
     }
@@ -82,18 +81,15 @@
       color: #007a3d;
       font-size: 8px;
       font-weight: 800;
-      letter-spacing: 0.5px;
       line-height: 1;
     }
     .flag-black { background: #000000; flex: 1; }
 
-    /* الترويسة */
     header {
       background: linear-gradient(135deg, #0369a1 0%, #0284c7 60%, #38bdf8 100%);
       color: #ffffff;
       padding: 2.2rem 1rem 2.8rem;
       text-align: center;
-      position: relative;
       box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
     }
     header h1 {
@@ -120,9 +116,6 @@
       font-size: 0.85rem;
       z-index: 100;
       box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     main {
@@ -133,7 +126,6 @@
       flex: 1;
     }
 
-    /* شريط الأدوات والإحصائيات */
     .toolbar-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -168,7 +160,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: transform 0.15s, opacity 0.15s, background 0.2s;
+      transition: transform 0.15s, background 0.2s;
+      text-decoration: none;
     }
     .btn:active { transform: scale(0.97); }
     .btn-primary { background: var(--primary); color: #fff; }
@@ -197,10 +190,6 @@
       color: var(--text);
       font-size: 0.9rem;
     }
-    .search-box input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
 
     .stats-bar {
       display: flex;
@@ -221,7 +210,6 @@
       font-weight: 700;
     }
 
-    /* شبكة المجلدات */
     .folders-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -249,7 +237,6 @@
       background: var(--primary-light);
     }
 
-    /* أيقونة المجلد ثلاثية الأبعاد المتحركة */
     .folder-3d {
       width: 74px;
       height: 58px;
@@ -294,14 +281,9 @@
       border-radius: 6px 6px 8px 8px;
       transform-origin: bottom;
       transition: transform 0.3s ease;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
     }
-    .folder-card:hover .folder-front {
-      transform: rotateX(-24deg);
-    }
-    .folder-card:hover .folder-paper {
-      transform: translateY(-6px);
-    }
+    .folder-card:hover .folder-front { transform: rotateX(-24deg); }
+    .folder-card:hover .folder-paper { transform: translateY(-6px); }
 
     .folder-custom-img {
       width: 68px;
@@ -327,8 +309,6 @@
       position: absolute;
       top: 8px;
       left: 8px;
-      display: flex;
-      gap: 4px;
     }
     .icon-btn {
       background: var(--surface);
@@ -345,7 +325,6 @@
     }
     .icon-btn:hover { border-color: var(--danger); color: var(--danger); }
 
-    /* قسم عرض الملفات */
     .files-section {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -364,9 +343,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .table-responsive {
-      overflow-x: auto;
-    }
+    .table-responsive { overflow-x: auto; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -383,9 +360,7 @@
       font-weight: 800;
       color: var(--primary);
     }
-    tr:hover td {
-      background: var(--surface-alt);
-    }
+    tr:hover td { background: var(--surface-alt); }
 
     .file-type-pill {
       padding: 0.2rem 0.6rem;
@@ -423,7 +398,6 @@
       background: var(--surface);
     }
 
-    /* النوافذ المنبثقة (Modals) */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -435,9 +409,7 @@
       z-index: 1000;
       backdrop-filter: blur(3px);
     }
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
     .modal-box {
       background: var(--surface);
       color: var(--text);
@@ -450,9 +422,7 @@
       max-height: 90vh;
       overflow-y: auto;
     }
-    .modal-box.modal-lg {
-      max-width: 850px;
-    }
+    .modal-box.modal-lg { max-width: 850px; }
     .modal-header {
       display: flex;
       justify-content: space-between;
@@ -461,9 +431,7 @@
       padding-bottom: 0.6rem;
       border-bottom: 1px solid var(--border);
     }
-    .form-group {
-      margin-bottom: 0.95rem;
-    }
+    .form-group { margin-bottom: 0.95rem; }
     .form-group label {
       display: block;
       font-weight: 700;
@@ -506,7 +474,6 @@
       border-radius: 8px;
     }
 
-    /* تنسيق الطباعة A4 */
     @media print {
       body { background: #fff !important; color: #000 !important; }
       .iraq-flag, .theme-toggle, .toolbar-card, .folders-grid, .storage-notice, footer, .no-print {
@@ -527,24 +494,20 @@
 </head>
 <body>
 
-  <!-- علم العراق -->
   <div class="iraq-flag" title="العراق">
     <div class="flag-red"></div>
     <div class="flag-white"><span>الله أكبر</span></div>
     <div class="flag-black"></div>
   </div>
 
-  <!-- زر الوضع الليلي -->
   <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 الوضع الليلي</button>
 
-  <!-- الترويسة -->
   <header>
     <h1>نشاطات المنظمات</h1>
     <p>الأرشيف الإلكتروني الشامل للمجلدات والوثائق</p>
   </header>
 
   <main>
-    <!-- شريط التحكم والإحصائيات -->
     <section class="toolbar-card">
       <div class="actions-row">
         <div class="btn-group">
@@ -567,14 +530,12 @@
           <span class="badge-stat" id="folderCountStat">0 مجلد</span>
           <span class="badge-stat" id="fileCountStat">0 ملف مرفق</span>
         </div>
-        <div>PDF • صور • Excel • PowerPoint • Word</div>
+        <div>PDF • صور • Excel • PowerPoint • Word (تخزين عالي السعة)</div>
       </div>
     </section>
 
-    <!-- شبكة المجلدات -->
     <section class="folders-grid" id="foldersGrid"></section>
 
-    <!-- قسم عرض الملفات -->
     <section class="files-section">
       <div class="files-header">
         <div>
@@ -588,7 +549,7 @@
     </section>
 
     <p class="storage-notice">
-      تنبيه: الحفظ محلي داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
+      تنبيه: الحفظ محلي عالي السعة داخل المتصفح وعلى هذه الحاسبة فقط. استخدم «نسخة احتياطية» دورياً لحفظ بياناتك بأمان.
     </p>
   </main>
 
@@ -654,7 +615,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline" onclick="closeModal('fileModal')">إلغاء</button>
-          <button type="submit" class="btn btn-success">حفظ الملف</button>
+          <button type="submit" class="btn btn-success" id="saveFileBtn">حفظ الملف</button>
         </div>
       </form>
     </div>
@@ -672,40 +633,60 @@
   </div>
 
   <script>
-    const DB_KEY = 'org_archive_data_v1';
-    let appData = { folders: [], files: [] };
+    const DB_NAME = 'OrgArchiveDB';
+    const DB_VERSION = 1;
+    let db;
+    let foldersCache = [];
+    let filesCache = [];
     let selectedFolderId = null;
 
-    // تحميل البيانات عند التشغيل
-    function init() {
-      const saved = localStorage.getItem(DB_KEY);
-      if (saved) {
-        try {
-          appData = JSON.parse(saved);
-        } catch (e) {
-          appData = { folders: [], files: [] };
-        }
-      }
-      if (!appData.folders.length) {
-        appData.folders.push({
-          id: 'default-1',
-          name: 'الأرشيف العام',
-          desc: 'المجلد الافتراضي للوثائق والكتب الرسمية',
-          image: ''
-        });
-        persist();
-      }
-      const savedTheme = localStorage.getItem('org_archive_theme');
-      if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.getElementById('themeBtn').textContent = '☀️ الوضع النهاري';
-      }
-      document.getElementById('fileDateInput').valueAsDate = new Date();
-      renderAll();
+    // فتح قاعدة البيانات IndexedDB
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = (e) => {
+          const d = e.target.result;
+          if (!d.objectStoreNames.contains('folders')) {
+            d.createObjectStore('folders', { keyPath: 'id' });
+          }
+          if (!d.objectStoreNames.contains('files')) {
+            d.createObjectStore('files', { keyPath: 'id' });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
     }
 
-    function persist() {
+    function dbGetAll(storeName) {
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(storeName, 'readonly');
+        const req = tx.objectStore(storeName).getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    function dbPut(storeName, item) {
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(storeName, 'readwrite');
+        const req = tx.objectStore(storeName).put(item);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    function dbDelete(storeName, id) {
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(storeName, 'readwrite');
+        const req = tx.objectStore(storeName).delete(id);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function init() {
       try {
-        localStorage.setItem(DB_KEY, JSON.stringify(appData));
-      } catch (e) {
-     
+        db = await openDB();
+        await refreshData();
+    
